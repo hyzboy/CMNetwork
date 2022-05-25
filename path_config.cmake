@@ -1,0 +1,9 @@
+﻿macro(CMNetworkSetup CMNETWORK_ROOT_PATH)
+
+    message("CMNETWORK_ROOT_PATH: " ${CMNETWORK_ROOT_PATH})
+
+    set(CMNETWORK_ROOT_INCLUDE_PATH    ${CMNETWORK_ROOT_PATH}/inc)
+    set(CMNETWORK_ROOT_SOURCE_PATH     ${CMNETWORK_ROOT_PATH}/src)
+
+    include_directories(${CMNETWORK_ROOT_INCLUDE_PATH})
+endmacro()
