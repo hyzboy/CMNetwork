@@ -87,8 +87,6 @@ namespace hgl
 
     namespace network
     {
-        const uint16 GetPort(const char *scheme);
-
         int CreateSocket(const IPAddress *);                                                        ///<创建Socket
         void CloseSocket(int);                                                                      ///<关闭socket
 
