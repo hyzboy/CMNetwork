@@ -1,7 +1,7 @@
-﻿#include<hgl/Str.h>
-#include<hgl/type/BaseString.h>
+﻿#include<hgl/type/StrChar.h>
+#include<hgl/type/String.h>
 #include<hgl/io/MemoryOutputStream.h>
-#include<hgl/algorithm/Hash.h>
+#include<hgl/util/hash/Hash.h>
 #include<hgl/algorithm/Crypt.h>
 
 namespace hgl
@@ -41,7 +41,7 @@ namespace hgl
                 end=key;
                 while(*end!='\r')++end;
 
-                sec_websocket_key.Set(key,end-key);
+                sec_websocket_key=UTF8String(key,end-key);
             }
 
             {

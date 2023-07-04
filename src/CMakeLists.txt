@@ -39,8 +39,9 @@ SET(NETWORK_SCTP_SOURCE
 SET(NETWORK_HTTP_SOURCE
     HTTPInputStream.cpp
 #     HTTPOutputStream.cpp
-    HTTPTools.cpp
-    WebApi_Currency.cpp)
+#    HTTPTools.cpp
+#    WebApi_Currency.cpp
+)
 
 SET(NETWORK_WEBSOCKET_SOURCE
     WebSocket.cpp
@@ -99,9 +100,7 @@ SET(CM_NETWORK_ALL_SOURCE
     ${NETWORK_OS_SOURCE}
     WebapiUserAgent.cpp)
 
+add_cm_library(CMNetwork "CM" ${CM_NETWORK_ALL_SOURCE} ${NETWORK_HTTP_SOURCE})
 
-IF(WIN32)
-    add_cm_library(CMNetwork "CM" ${CM_NETWORK_ALL_SOURCE})
-ELSE()
-    add_cm_library(CMNetwork "CM" ${CM_NETWORK_ALL_SOURCE} ${NETWORK_HTTP_SOURCE})
-ENDIF()
+#find_package(unofficial-gumbo CONFIG REQUIRED)
+#target_link_libraries(CMNetwork PRIVATE unofficial::gumbo::gumbo)
