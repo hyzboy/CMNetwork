@@ -1,7 +1,7 @@
 ﻿#include<hgl/network/SocketOutputStream.h>
 #include<hgl/io/DataOutputStream.h>
 #include<hgl/network/TCPSocket.h>
-#include<hgl/LogInfo.h>
+#include<hgl/log/LogInfo.h>
 namespace hgl
 {
     namespace network
@@ -40,13 +40,13 @@ namespace hgl
             if(size==0)return(0);
             if(size<0)
             {
-                LOG_ERROR(OS_TEXT("SocketOutputStream::Write() fatal error,size<0,sock=")+OSString(sock));
+                LOG_ERROR(OS_TEXT("SocketOutputStream::Write() fatal error,size<0,sock=")+OSString::numberOf(sock));
                 return(-3);
             }
 
             if(!buf)
             {
-                LOG_ERROR(OS_TEXT("SocketOutputStream::Write() fatal error,buf=nullptr,sock=")+OSString(sock));
+                LOG_ERROR(OS_TEXT("SocketOutputStream::Write() fatal error,buf=nullptr,sock=")+OSString::numberOf(sock));
                 return(-2);
             }
 
@@ -56,13 +56,13 @@ namespace hgl
             {
                 total+=result;
 
-//                LOG_INFO(OS_TEXT("Socket ")+OSString(sock)+OS_TEXT(" send ")+OSString(size)+OS_TEXT(" bytes ok,result ")+OSString(result)+OS_TEXT(" total send ")+OSString(total)+OS_TEXT(" bytes."));
+//                LOG_INFO(OS_TEXT("Socket ")+OSString::numberOf(sock)+OS_TEXT(" send ")+OSString::numberOf(size)+OS_TEXT(" bytes ok,result ")+OSString(result)+OS_TEXT(" total send ")+OSString(total)+OS_TEXT(" bytes."));
             }
             else
             {
                 int err=GetLastSocketError();
 
-                LOG_INFO(OS_TEXT("Socket ")+OSString(sock)+OS_TEXT(" send ")+OSString(size)+OS_TEXT(" bytes failed,,error: ")+OSString(err)+OS_TEXT(",")+GetSocketString(err));
+                LOG_INFO(OS_TEXT("Socket ")+OSString::numberOf(sock)+OS_TEXT(" send ")+OSString::numberOf(size)+OS_TEXT(" bytes failed,,error: ")+OSString::numberOf(err)+OS_TEXT(",")+GetSocketString(err));
             }
 
             return(result);
@@ -87,13 +87,13 @@ namespace hgl
 
             if(size<0)
             {
-                LOG_ERROR(OS_TEXT("SocketOutputStream::WriteFully() fatal error,size<0,sock=")+OSString(sock));
+                LOG_ERROR(OS_TEXT("SocketOutputStream::WriteFully() fatal error,size<0,sock=")+OSString::numberOf(sock));
                 return(-3);
             }
 
             if(!buf)
             {
-                LOG_ERROR(OS_TEXT("SocketOutputStream::WriteFully() fatal error,buf=nullptr,sock=")+OSString(sock));
+                LOG_ERROR(OS_TEXT("SocketOutputStream::WriteFully() fatal error,buf=nullptr,sock=")+OSString::numberOf(sock));
                 return(-2);
             }
 
@@ -115,7 +115,7 @@ namespace hgl
             {
                 result=send(sock,p,left_bytes,0);
 
-//                 LOG_ERROR(OS_TEXT("socket send  result, left_bytes:  ")+OSString(sock)+OSString(" , ")+OSString((int)result)+OSString(" , ")+OSString((int)left_bytes));
+//                 LOG_ERROR(OS_TEXT("socket send  result, left_bytes:  ")+OSString::numberOf(sock)+OSString(" , ")+OSString((int)result)+OSString(" , ")+OSString((int)left_bytes));
                 if(result==0)
                 {
                     sock=-1;
@@ -142,11 +142,11 @@ namespace hgl
                     err_str=GetSocketString(err);
                     if(err_str)
                     {
-                        LOG_ERROR(OS_TEXT("SocketOutputStream::WriteFully error,Socket:")+OSString(sock)+OS_TEXT(",error code=")+OSString(err)+OS_TEXT(":")+OSString(err_str));
+                        LOG_ERROR(OS_TEXT("SocketOutputStream::WriteFully error,Socket:")+OSString::numberOf(sock)+OS_TEXT(",error code=")+OSString::numberOf(err)+OS_TEXT(":")+OSString(err_str));
                     }
                     else
                     {
-                        LOG_ERROR(OS_TEXT("SocketOutputStream::WriteFully error,Socket:")+OSString(sock)+OS_TEXT(",error code=")+OSString(err));
+                        LOG_ERROR(OS_TEXT("SocketOutputStream::WriteFully error,Socket:")+OSString::numberOf(sock)+OS_TEXT(",error code=")+OSString::numberOf(err));
                     }
                     sock=-1;
                     break;

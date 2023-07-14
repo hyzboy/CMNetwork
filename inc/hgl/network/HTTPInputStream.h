@@ -2,7 +2,7 @@
 #define HGL_NETWORK_HTTP_INPUT_STREAM_INCLUDE
 
 #include<hgl/io/InputStream.h>
-#include<hgl/ut/PList.h>
+#include<hgl/util/plist/PList.h>
 #include<hgl/network/IP.h>
 namespace hgl
 {
@@ -64,7 +64,7 @@ namespace hgl
 
             bool    Restart() override{return false;}                                               ///<复位访问指针
             int64   Skip(int64) override{return 0;}                                                 ///<跳过指定字节不访问
-            int64   Seek(int64,SeekOrigin=soBegin) override {return false;}                         ///<移动访问指针
+            int64   Seek(int64,SeekOrigin so=SeekOrigin::Begin) override {return false;}            ///<移动访问指针
             int64   Tell()const override{return pos;}                                               ///<返回当前访问位置
             int64   GetSize()const override{return filelength;}                                     ///<取得流长度
             int64   Available()const override{return filelength-pos;}                               ///<剩下的可以不受阻塞访问的字节数

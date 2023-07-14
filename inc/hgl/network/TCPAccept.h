@@ -2,7 +2,7 @@
 #define HGL_NETWORK_TCP_ACCEPT_INCLUDE
 
 #include<hgl/network/TCPSocket.h>
-#include<hgl/type/MemBlock.h>
+#include<hgl/type/DataArray.h>
 namespace hgl
 {
     namespace network
@@ -60,7 +60,7 @@ namespace hgl
         {
         protected:
 
-            MemBlock<uchar> recv_buffer;
+            DataArray<uchar> recv_buffer;
             uint            recv_length=0;
 
             uint64          recv_total=0;

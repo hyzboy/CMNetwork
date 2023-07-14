@@ -12,7 +12,7 @@ namespace hgl
             {
                 int count=ip_stack.GetCount();
 
-                ip_stack.SetMax(count+1024);
+                ip_stack.SetMaxCount(count+1024);
 
                 server->CreateIPAddress(ip_stack.GetData()+count,1024);
 

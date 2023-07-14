@@ -1,7 +1,7 @@
 #ifndef HGL_NETWORK_WEBSOCKET_INCLUDE
 #define HGL_NETWORK_WEBSOCKET_INCLUDE
 
-#include<hgl/type/BaseString.h>
+#include<hgl/type/String.h>
 namespace hgl
 {
     namespace network

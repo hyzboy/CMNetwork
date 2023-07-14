@@ -2,7 +2,7 @@
 #include<hgl/network/WebSocket.h>
 #include<hgl/network/SocketInputStream.h>
 #include<hgl/network/SocketOutputStream.h>
-#include<hgl/LogInfo.h>
+#include<hgl/log/LogInfo.h>
 
 namespace hgl
 {
@@ -23,7 +23,7 @@ namespace hgl
             constexpr char HTTP_HEADER_END_STR[4]={'\r','\n','\r','\n'};        //别用"\r\n\r\n"，不然sizeof会得出来5
             constexpr int HTTP_HEADER_END_SIZE=sizeof(HTTP_HEADER_END_STR);
 
-            MemBlock<char>  ws_header(1024);
+            DataArray<char>  ws_header(1024);
 
             int pos=0;
             int total=0;
@@ -178,7 +178,7 @@ namespace hgl
                 if(msg_masked)
                     msg_full_length+=4;
 
-                recv_buffer.SetLength(msg_full_length);
+                recv_buffer.SetCount(msg_full_length);
 
                 int result=sis->Read(recv_buffer.data()+recv_length,msg_full_length-(recv_length-msg_header_size));
 
@@ -231,11 +231,11 @@ namespace hgl
                     if(msg_length>0)
                     {
                     #ifdef _DEBUG
-                        data_out_str.SetLength(msg_length*3);
+                        data_out_str.SetCount(msg_length*3);
 
                         DataToLowerHexStr(data_out_str.data(),(uint8 *)pack,msg_length,',');
 
-                        LOG_INFO(U8_TEXT("WebSocket[")+UTF8String(ThisSocket)+U8_TEXT("] Recv binary [")+UTF8String(msg_length)+U8_TEXT("]: ")+UTF8String(data_out_str.data()));
+                        LOG_INFO(U8_TEXT("WebSocket[")+UTF8String::numberOf(ThisSocket)+U8_TEXT("] Recv binary [")+UTF8String::numberOf(msg_length)+U8_TEXT("]: ")+UTF8String(data_out_str.data()));
                     #endif//_DEBUG
 
                         OnBinary(pack,msg_length,msg_fin);
@@ -261,7 +261,7 @@ namespace hgl
                 }
                 else
                 {
-                    LOG_PROBLEM(OS_TEXT("WebSocketAccept,opcode error,opcode:")+OSString(msg_opcode)+OS_TEXT(",length:")+OSString(msg_length));
+                    LOG_PROBLEM(OS_TEXT("WebSocketAccept,opcode error,opcode:")+OSString::numberOf(msg_opcode)+OS_TEXT(",length:")+OSString::numberOf(msg_length));
                     OnError();
                 }
 
@@ -334,11 +334,11 @@ namespace hgl
         bool WebSocketAccept::SendBinary(void *data,uint32 size,bool fin)
         {
         #ifdef _DEBUG
-            data_out_str.SetLength(size*3);
+            data_out_str.SetCount(size*3);
 
             DataToLowerHexStr(data_out_str.data(),(uint8 *)data,size,',');
 
-            LOG_INFO(U8_TEXT("WebSocket[")+UTF8String(ThisSocket)+U8_TEXT("] Send binary [")+UTF8String(size)+U8_TEXT("]: ")+UTF8String(data_out_str.data()));
+            LOG_INFO(U8_TEXT("WebSocket[")+UTF8String::numberOf(ThisSocket)+U8_TEXT("] Send binary [")+UTF8String::numberOf(size)+U8_TEXT("]: ")+UTF8String(data_out_str.data()));
         #endif//_DEBUG
 
             return SendFrame(0x2,data,size,fin)>0;

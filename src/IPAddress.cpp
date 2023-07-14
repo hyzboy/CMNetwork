@@ -1,5 +1,5 @@
 ﻿#include<hgl/network/IP.h>
-#include<hgl/LogInfo.h>
+#include<hgl/log/LogInfo.h>
 
 namespace hgl
 {
@@ -79,7 +79,7 @@ namespace hgl
 
             if (bind(ThisSocket, (SockAddr *)&addr, sizeof(SockAddrIn)))
             {
-                LOG_ERROR(OS_TEXT("Bind Socket Error! errno: ") + OSString(GetLastSocketError()));
+                LOG_ERROR(OS_TEXT("Bind Socket Error! errno: ") + OSString::numberOf(GetLastSocketError()));
                 return(false);
             }
 

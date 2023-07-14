@@ -3,7 +3,7 @@
 #include<hgl/network/SocketOutputStream.h>
 #include<hgl/io/DataInputStream.h>
 #include<hgl/io/DataOutputStream.h>
-#include<hgl/Str.h>
+#include<hgl/type/StrChar.h>
 
 namespace hgl
 {

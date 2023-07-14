@@ -1,4 +1,4 @@
-﻿#include<hgl/LogInfo.h>
+﻿#include<hgl/log/LogInfo.h>
 #include<hgl/network/UdpSocket.h>
 #include<string.h>
 

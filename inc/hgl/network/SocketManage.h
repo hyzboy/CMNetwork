@@ -30,7 +30,7 @@ namespace hgl
                             sock_send_list,
                             sock_error_list;
 
-            Set<TCPAccept *> error_set;
+            SortedSets<TCPAccept *> error_sets;
 
         protected:
 
@@ -42,7 +42,7 @@ namespace hgl
 
         public:
 
-            const Set<TCPAccept *> &GetErrorSocketSet(){return error_set;}     ///<获取错误SOCKET合集
+            const SortedSets<TCPAccept *> &GetErrorSocketSet(){return error_sets;}     ///<获取错误SOCKET合集
 
         public:
 

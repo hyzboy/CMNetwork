@@ -1,5 +1,5 @@
 ﻿#include<hgl/network/Socket.h>
-#include<hgl/LogInfo.h>
+#include<hgl/log/LogInfo.h>
 #include<time.h>
 #include<iostream>
 
@@ -57,16 +57,16 @@ namespace hgl
             {
                 const int sock_error=GetLastSocketError();      //在这里定义一个，是为了调试方便可以查看
 
-                LOG_ERROR(OS_TEXT("CreateSocket(domain=")+OSString(addr->GetFamily())+
-                            OS_TEXT(",type=")+OSString(addr->GetSocketType())+
-                            OS_TEXT(",protocol=")+OSString(protocol)+
-                            OS_TEXT(") return ")+OSString(s)+
-                            OS_TEXT("; errno ")+OSString(sock_error));
+                LOG_ERROR(  OS_TEXT("CreateSocket(domain=")+OSString::numberOf(addr->GetFamily())+
+                            OS_TEXT(",type=")+OSString::numberOf(addr->GetSocketType())+
+                            OS_TEXT(",protocol=")+OSString::numberOf(protocol)+
+                            OS_TEXT(") return ")+OSString::numberOf(s)+
+                            OS_TEXT("; errno ")+OSString::numberOf(sock_error));
 
                 RETURN_ERROR(-3);
             }
 
-            LOG_INFO(U8_TEXT("Create ")+UTF8String(addr->GetProtocolName())+U8_TEXT(" Socket OK: ")+UTF8String(s));
+            LOG_INFO(U8_TEXT("Create ")+UTF8String(addr->GetProtocolName())+U8_TEXT(" Socket OK: ")+UTF8String::numberOf(s));
 
             return s;
         }
@@ -423,7 +423,7 @@ namespace hgl
             #ifdef _WIN32
                 closesocket(ThisSocket);
 
-                LOG_INFO(OS_TEXT("CloseSocket: ") + OSString(ThisSocket));
+                LOG_INFO(OS_TEXT("CloseSocket: ") + OSString::numberOf(ThisSocket));
             #else
                 int result;
 
@@ -433,13 +433,13 @@ namespace hgl
 
                     result=close(ThisSocket);
 
-                    LOG_INFO(OS_TEXT("CloseSocket: ")+OSString(ThisSocket)+OS_TEXT(",result:")+OSString(result)+OS_TEXT(",errno: ")+OSString(errno));
+                    LOG_INFO(OS_TEXT("CloseSocket: ")+OSString(ThisSocket)+OS_TEXT(",result:")+OSString::numberOf(result)+OS_TEXT(",errno: ")+OSString::numberOf(errno));
 
                     if(errno==EBADF)break;
                     if(errno==EINPROGRESS)continue;
                 }while(result);
 
-                LOG_INFO(OS_TEXT("CloseSocket: ") + OSString(ThisSocket) + OS_TEXT(",result:") + OSString(result));
+                LOG_INFO(OS_TEXT("CloseSocket: ") + OSString(ThisSocket) + OS_TEXT(",result:") + OSString::numberOf(result));
             #endif//_WIN32
         }
 

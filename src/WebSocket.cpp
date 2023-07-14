@@ -2,14 +2,11 @@
 #include<hgl/type/String.h>
 #include<hgl/io/MemoryOutputStream.h>
 #include<hgl/util/hash/Hash.h>
-#include<hgl/algorithm/Crypt.h>
 
 namespace hgl
 {
     namespace network
     {
-        using namespace hgl::algorithm;
-
         /**
          * 获取WebSocket信息
          * @param data 输入的信息头
@@ -53,7 +50,7 @@ namespace hgl
                     end=protocol;
                     while(*end!='\r')++end;
 
-                    sec_websocket_protocol.Set(protocol,end-protocol);
+                    sec_websocket_protocol.SetString(protocol,end-protocol);
                 }
             }
 
@@ -73,33 +70,34 @@ namespace hgl
             return(true);
         }
 
-        /**
-         * 生成WebSocket回复头
-         * @param result 回复头存放字符串
-         */
-        void MakeWebSocketAccept(UTF8String &result,const UTF8String &sec_websocket_key,const UTF8String &sec_websocket_protocol)
-        {
-            const UTF8String key_mask=sec_websocket_key+"258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
+        ///**
+        /// 这函数可以用，只是这版SDK没有base64_encode,所以暂时屏蔽
+        // * 生成WebSocket回复头
+        // * @param result 回复头存放字符串
+        // */
+        //void MakeWebSocketAccept(UTF8String &result,const UTF8String &sec_websocket_key,const UTF8String &sec_websocket_protocol)
+        //{
+        //    const UTF8String key_mask=sec_websocket_key+"258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 
-            HashCodeSHA1 hc;
+        //    util::HashCodeSHA1 hc;
 
-            CountSHA1(key_mask.c_str(),key_mask.Length(),hc);
+        //    CountSHA1(key_mask.c_str(),key_mask.Length(),hc);
 
-            io::MemoryOutputStream mos;
+        //    io::MemoryOutputStream mos;
 
-            base64_encode(&mos,hc.code,hc.size());
+        //    base64_encode(&mos,hc.code,hc.size());
 
-            const UTF8String sec_websocket_accept((char *)mos.GetData(),mos.GetSize());
+        //    const UTF8String sec_websocket_accept((char *)mos.GetData(),mos.GetSize());
 
-            result="HTTP/1.1 101 Switching Protocols\r\n"
-                   "Upgrade: websocket\r\n"
-                   "Connection: Upgrade\r\n"
-                   "Sec-WebSocket-Accept: "+sec_websocket_accept;
+        //    result="HTTP/1.1 101 Switching Protocols\r\n"
+        //           "Upgrade: websocket\r\n"
+        //           "Connection: Upgrade\r\n"
+        //           "Sec-WebSocket-Accept: "+sec_websocket_accept;
 
-            if(!sec_websocket_protocol.IsEmpty())
-                result+="\r\nSec-WebSocket-Protocol: "+sec_websocket_protocol;
+        //    if(!sec_websocket_protocol.IsEmpty())
+        //        result+="\r\nSec-WebSocket-Protocol: "+sec_websocket_protocol;
 
-            result+="\r\n\r\n";
-        }
+        //    result+="\r\n\r\n";
+        //}
     }//namespace network
 }//namespace hgl

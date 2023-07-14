@@ -1,6 +1,6 @@
 ﻿#include<hgl/network/HTTPInputStream.h>
 #include<hgl/network/TCPClient.h>
-#include<hgl/LogInfo.h>
+#include<hgl/log/LogInfo.h>
 #include<hgl/type/Smart.h>
 
 namespace hgl
@@ -127,7 +127,7 @@ namespace hgl
             if(!offset)
                 return;
 
-            response_info.Set(http_header,offset-http_header);
+            response_info.SetString(http_header,offset-http_header);
 
             char *first=strchr(http_header,' ');
 
@@ -150,14 +150,14 @@ namespace hgl
                 UTF8String key;
                 UTF8String value;
 
-                key.Set(first,second-first);
+                key.SetString(first,second-first);
 
                 first=second+2;
                 second=strstr(first,http_header_size-(first-http_header),HTTP_HEADER_SPLITE,HTTP_HEADER_SPLITE_SIZE);
 
                 if(!second)break;
 
-                value.Set(first,second-first);
+                value.SetString(first,second-first);
                 offset=second;
 
                 response_list.Add(key,value);
@@ -215,7 +215,7 @@ namespace hgl
             if(err==nseWouldBlock)return(0);      //不能立即完成
             if(err==0)return(0);
 
-            LOG_ERROR(OSString("Socket Error: ")+GetSocketString(err));
+            LOG_ERROR(OSString(OS_TEXT("Socket Error: "))+GetSocketString(err));
 
             Close();
             RETURN_ERROR(-2);

@@ -2,7 +2,7 @@
 #define HGL_NETWORK_WEBSOCKET_ACCEPT_INCLUDE
 
 #include<hgl/network/TCPAccept.h>
-#include<hgl/type/BaseString.h>
+#include<hgl/type/String.h>
 namespace hgl
 {
     namespace network
@@ -13,11 +13,11 @@ namespace hgl
         class WebSocketAccept:public TCPAccept
         {
         #ifdef _DEBUG
-            MemBlock<char> data_out_str;
+            DataArray<char> data_out_str;
         #endif//_DEBUG
         protected:
 
-            MemBlock<uchar> recv_buffer;
+            DataArray<uchar> recv_buffer;
             uint            recv_length=0;
 
             uint64          recv_total=0;

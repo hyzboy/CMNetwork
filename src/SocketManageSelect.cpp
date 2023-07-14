@@ -1,8 +1,8 @@
 ﻿#include"SocketManageBase.h"
 #include<hgl/network/Socket.h>
 #include<hgl/Time.h>
-#include<hgl/type/Set.h>
-#include<hgl/LogInfo.h>
+#include<hgl/type/SortedSets.h>
+#include<hgl/log/LogInfo.h>
 
 namespace hgl
 {
@@ -17,7 +17,7 @@ namespace hgl
 
             int max_fd;
 
-            Set<int> sock_id_list;
+            SortedSets<int> sock_id_list;
 
             fd_set  fd_sock_list;       //完整的sock列表
 
@@ -51,7 +51,7 @@ namespace hgl
 
                 cur_count++;
 
-                LOG_INFO(OS_TEXT("Join ")+OSString(sock)+OS_TEXT(" to SocketManageSelect"));
+                LOG_INFO(OS_TEXT("Join ")+OSString::numberOf(sock)+OS_TEXT(" to SocketManageSelect"));
 
                 return(true);
             }
@@ -64,7 +64,7 @@ namespace hgl
 
                 sock_id_list.Delete(sock);
 
-                LOG_INFO(OS_TEXT("Unjoin ")+OSString(sock)+OS_TEXT(" from SocketManageSelect"));
+                LOG_INFO(OS_TEXT("Unjoin ")+OSString::numberOf(sock)+OS_TEXT(" from SocketManageSelect"));
 
                 return(true);
             }
@@ -122,7 +122,7 @@ namespace hgl
 
                 if(select(max_fd+1,&fd_recv_list,&fd_send_list,&fd_error_list,time_par)<0)
                 {
-                    LOG_INFO(OS_TEXT("select return -1,errno: ")+OSString(errno));
+                    LOG_INFO(OS_TEXT("select return -1,errno: ")+OSString::numberOf(errno));
 
                     if(errno==EBADF
                      ||errno==EFAULT

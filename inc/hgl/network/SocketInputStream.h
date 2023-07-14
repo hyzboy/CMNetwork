@@ -4,7 +4,7 @@
 #include<hgl/io/InputStream.h>
 namespace hgl
 {
-    template<typename T> class MemBlock;
+    template<typename T> class DataArray;
 
     namespace network
     {
@@ -16,7 +16,7 @@ namespace hgl
         protected:
 
             int sock;
-            MemBlock<char> *mb;
+            DataArray<char> *mb;
 
             int64 total;            //累计字节数
 
@@ -46,7 +46,7 @@ namespace hgl
 
             bool    Restart(){return false;}                                                ///<复位访问指针
             int64   Skip(int64);                                                            ///<跳过指定字节不访问
-            int64   Seek(int64,io::SeekOrigin=io::soBegin){return -1;}                      ///<移动访问指针
+            int64   Seek(int64,io::SeekOrigin=io::SeekOrigin::Begin){return -1;}            ///<移动访问指针
             int64   Tell()const{return -1;}                                                 ///<返回当前访问位置
             int64   GetSize()const{return -1;}                                              ///<取得流长度
             int64   Available()const;                                                       ///<剩下的可以不受阻塞访问的字节数

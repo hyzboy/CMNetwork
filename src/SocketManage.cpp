@@ -1,5 +1,5 @@
 ﻿#include<hgl/network/SocketManage.h>
-#include<hgl/LogInfo.h>
+#include<hgl/log/LogInfo.h>
 #include"SocketManageBase.h"
 
 namespace hgl
@@ -31,13 +31,13 @@ namespace hgl
                 {
                     if(sock->OnSocketRecv(se->error)<0)
                     {
-                        LOG_INFO(OS_TEXT("OnSocketRecv return Error,sock:")+OSString(se->sock));
-                        error_set.Add(sock);
+                        LOG_INFO(OS_TEXT("OnSocketRecv return Error,sock:")+OSString::numberOf(se->sock));
+                        error_sets.Add(sock);
                     }
                 }
                 else
                 {
-                    LOG_ERROR(OS_TEXT("Fatal error,can't find socket in SocketList,sock is ")+OSString(se->sock));
+                    LOG_ERROR(OS_TEXT("Fatal error,can't find socket in SocketList,sock is ")+OSString::numberOf(se->sock));
                 }
 
                 ++se;
@@ -61,13 +61,13 @@ namespace hgl
                 {
                     if(sock->OnSocketSend(se->size)<0)
                     {
-                        LOG_INFO(OS_TEXT("OnSocketSend return Error,sock:")+OSString(se->sock));
-                        error_set.Add(sock);
+                        LOG_INFO(OS_TEXT("OnSocketSend return Error,sock:")+OSString::numberOf(se->sock));
+                        error_sets.Add(sock);
                     }
                 }
                 else
                 {
-                    LOG_ERROR(OS_TEXT("Fatal error,can't find socket in SocketList,sock is ")+OSString(se->sock));
+                    LOG_ERROR(OS_TEXT("Fatal error,can't find socket in SocketList,sock is ")+OSString::numberOf(se->sock));
                 }
 
                 ++se;
@@ -89,13 +89,13 @@ namespace hgl
             {
                 if(socket_list.Get(se->sock,sock))
                 {
-                    LOG_INFO(OS_TEXT("SocketError,sock:")+OSString(se->sock)+OS_TEXT(",errno:")+OSString(se->error));
+                    LOG_INFO(OS_TEXT("SocketError,sock:")+OSString::numberOf(se->sock)+OS_TEXT(",errno:")+OSString::numberOf(se->error));
                     sock->OnSocketError(se->error);
-                    error_set.Add(sock);
+                    error_sets.Add(sock);
                 }
                 else
                 {
-                    LOG_ERROR(OS_TEXT("Fatal error,can't find socket in SocketList,sock is ")+OSString(se->sock));
+                    LOG_ERROR(OS_TEXT("Fatal error,can't find socket in SocketList,sock is ")+OSString::numberOf(se->sock));
                 }
 
                 ++se;
@@ -106,11 +106,11 @@ namespace hgl
 
         void SocketManage::ProcErrorList()
         {
-            const int count=error_set.GetCount();
+            const int count=error_sets.GetCount();
 
             if(count<=0)return;
 
-            TCPAccept **sp=error_set.GetData();
+            TCPAccept **sp=error_sets.GetData();
 
             for(int i=0;i<count;i++)
             {
@@ -127,7 +127,7 @@ namespace hgl
 
             if(!socket_list.Add(s->ThisSocket,s))
             {
-                LOG_ERROR(OS_TEXT("repeat append socket to manage,sock:")+OSString(s->ThisSocket));
+                LOG_ERROR(OS_TEXT("repeat append socket to manage,sock:")+OSString::numberOf(s->ThisSocket));
                 return(false);
             }
 
@@ -162,7 +162,7 @@ namespace hgl
 
             if(!socket_list.DeleteByKey(s->ThisSocket))
             {
-                LOG_ERROR(OS_TEXT("socket don't in SocketManage,sock:")+OSString(s->ThisSocket));
+                LOG_ERROR(OS_TEXT("socket don't in SocketManage,sock:")+OSString::numberOf(s->ThisSocket));
                 return(false);
             }
 
@@ -190,7 +190,7 @@ namespace hgl
         int SocketManage::Update(const double &time_out)
         {
             //将error_set放在这里，是为了保留它给外面的调用者使用
-            error_set.ClearData();
+            error_sets.ClearData();
 
             const int count=manage->Update(time_out,sock_recv_list,sock_send_list,sock_error_list);
 
@@ -212,7 +212,7 @@ namespace hgl
 
             for(int i=0;i<count;i++)
             {
-                Unjoin((*us)->right);
+                Unjoin((*us)->value);
 
                 ++us;
             }

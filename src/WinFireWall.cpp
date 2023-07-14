@@ -1,5 +1,5 @@
 ﻿#include<hgl/network/WinFireWall.h>
-#include<hgl/type/BaseString.h>
+#include<hgl/type/String.h>
 #include<netfw.h>
 
 namespace hgl

@@ -69,8 +69,8 @@
 
 #include<hgl/type/DataType.h>
 #include<hgl/type/List.h>
-#include<hgl/type/BaseString.h>
-#include<hgl/Str.h>
+#include<hgl/type/String.h>
+#include<hgl/type/StrChar.h>
 
 namespace hgl
 {
