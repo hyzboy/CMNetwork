@@ -72,7 +72,7 @@ namespace hgl
 
                 OnRecvPacket(recv_buffer.data()+PACKET_SIZE_TYPE_BYTES,pack_size);  //调用回调
 
-                recv_buffer.ClearData();
+                recv_buffer.Clear();
                 recv_length=0;
             }
         }

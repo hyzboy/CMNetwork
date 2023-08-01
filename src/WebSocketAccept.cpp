@@ -265,7 +265,7 @@ namespace hgl
                     OnError();
                 }
 
-                recv_buffer.ClearData();
+                recv_buffer.Clear();
                 recv_length=0;
             }//while
         }
