@@ -43,7 +43,7 @@ namespace hgl
                 ++se;
             }
 
-            sock_recv_list.ClearData();
+            sock_recv_list.Clear();
         }
 
         void SocketManage::ProcSocketSendList()
@@ -73,7 +73,7 @@ namespace hgl
                 ++se;
             }
 
-            sock_send_list.ClearData();
+            sock_send_list.Clear();
         }
 
         void SocketManage::ProcSocketErrorList()
@@ -101,7 +101,7 @@ namespace hgl
                 ++se;
             }
 
-            sock_error_list.ClearData();
+            sock_error_list.Clear();
         }
 
         void SocketManage::ProcErrorList()
@@ -217,7 +217,7 @@ namespace hgl
                 ++us;
             }
 
-            socket_list.ClearData();
+            socket_list.Clear();
         }
     }//namespace network
 }//namespace hgl
