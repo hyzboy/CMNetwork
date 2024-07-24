@@ -20,16 +20,16 @@ namespace hgl
 
         void WebSocketAccept::WebSocketHandshake()
         {
-            constexpr char HTTP_HEADER_END_STR[4]={'\r','\n','\r','\n'};        //别用"\r\n\r\n"，不然sizeof会得出来5
+            constexpr u8char HTTP_HEADER_END_STR[4]={'\r','\n','\r','\n'};        //别用"\r\n\r\n"，不然sizeof会得出来5
             constexpr int HTTP_HEADER_END_SIZE=sizeof(HTTP_HEADER_END_STR);
 
-            DataArray<char>  ws_header(1024);
+            DataArray<u8char>  ws_header(1024);
 
             int pos=0;
             int total=0;
             int size=0;
 
-            const char *end;
+            const u8char *end;
 
             while(true)
             {
@@ -45,7 +45,7 @@ namespace hgl
                 recv_total+=size;
                 pos+=size;
 
-                end=hgl::strrstr<const char>(ws_header.data(),pos,HTTP_HEADER_END_STR,HTTP_HEADER_END_SIZE);
+                end=hgl::strrstr<const u8char>(ws_header.data(),pos,HTTP_HEADER_END_STR,HTTP_HEADER_END_SIZE);
 
                 if(!end)
                     continue;
@@ -233,7 +233,7 @@ namespace hgl
                     #ifdef _DEBUG
                         data_out_str.SetCount(msg_length*3);
 
-                        DataToLowerHexStr(data_out_str.data(),(uint8 *)pack,msg_length,',');
+                        DataToLowerHexStr(data_out_str.data(),(uint8 *)pack,msg_length,u8char(','));
 
                         LOG_INFO(U8_TEXT("WebSocket[")+UTF8String::numberOf(ThisSocket)+U8_TEXT("] Recv binary [")+UTF8String::numberOf(msg_length)+U8_TEXT("]: ")+UTF8String(data_out_str.data()));
                     #endif//_DEBUG
@@ -336,7 +336,7 @@ namespace hgl
         #ifdef _DEBUG
             data_out_str.SetCount(size*3);
 
-            DataToLowerHexStr(data_out_str.data(),(uint8 *)data,size,',');
+            DataToLowerHexStr(data_out_str.data(),(uint8 *)data,size,u8char(','));
 
             LOG_INFO(U8_TEXT("WebSocket[")+UTF8String::numberOf(ThisSocket)+U8_TEXT("] Send binary [")+UTF8String::numberOf(size)+U8_TEXT("]: ")+UTF8String(data_out_str.data()));
         #endif//_DEBUG

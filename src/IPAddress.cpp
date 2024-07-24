@@ -94,7 +94,7 @@ namespace hgl
             if(getnameinfo(addr,sizeof(struct sockaddr),hostname,NI_MAXHOST,server_info,NI_MAXSERV,NI_NUMERICSERV))
                 return(false);
 
-            name=hostname;
+            name=(u8char *)hostname;
             return(true);
         }
 

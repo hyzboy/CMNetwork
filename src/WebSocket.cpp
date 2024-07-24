@@ -13,23 +13,23 @@ namespace hgl
          * @param size 信息头长度
          * @return 是否解晰成功
          */
-        bool GetWebSocketInfo(UTF8String &sec_websocket_key,UTF8String &sec_websocket_protocol,uint &sec_websocket_version,const char *data,const uint size)
+        bool GetWebSocketInfo(UTF8String &sec_websocket_key,UTF8String &sec_websocket_protocol,uint &sec_websocket_version,const u8char *data,const uint size)
         {
-            constexpr char SEC_WEBSOCKET_KEY[]="Sec-WebSocket-Key: ";
+            constexpr u8char SEC_WEBSOCKET_KEY[]=U8_TEXT("Sec-WebSocket-Key: ");
             constexpr uint SEC_WEBSOCKET_KEY_SIZE=sizeof(SEC_WEBSOCKET_KEY)-1;      //sizeof的带\0所以要-1
 
-            constexpr char SEC_WEBSOCKET_PROTOCOL[]="Sec-WebSocket-Protocol: ";
+            constexpr u8char SEC_WEBSOCKET_PROTOCOL[]=U8_TEXT("Sec-WebSocket-Protocol: ");
             constexpr uint SEC_WEBSOCKET_PROTOCOL_SIZE=sizeof(SEC_WEBSOCKET_PROTOCOL)-1;
 
-            constexpr char SEC_WEBSOCKET_VERSION[]="Sec-WebSocket-Version: ";
+            constexpr u8char SEC_WEBSOCKET_VERSION[]=U8_TEXT("Sec-WebSocket-Version: ");
             constexpr uint SEC_WEBSOCKET_VERSION_SIZE=sizeof(SEC_WEBSOCKET_VERSION)-1;
 
             if(!data||size<40)return(false);
 
-            const char *end;
+            const u8char *end;
 
             {
-                const char *key=hgl::strstr(data,size,SEC_WEBSOCKET_KEY,SEC_WEBSOCKET_KEY_SIZE);
+                const u8char *key=hgl::strstr(data,size,SEC_WEBSOCKET_KEY,SEC_WEBSOCKET_KEY_SIZE);
 
                 if(!key)return(false);
 
@@ -42,7 +42,7 @@ namespace hgl
             }
 
             {
-                const char *protocol=hgl::strstr(data,size,SEC_WEBSOCKET_PROTOCOL,SEC_WEBSOCKET_PROTOCOL_SIZE);
+                const u8char *protocol=hgl::strstr(data,size,SEC_WEBSOCKET_PROTOCOL,SEC_WEBSOCKET_PROTOCOL_SIZE);
 
                 if(protocol)        //也有可能是不存在的
                 {
@@ -55,7 +55,7 @@ namespace hgl
             }
 
             {
-                const char *version=hgl::strstr(data,size,SEC_WEBSOCKET_VERSION,SEC_WEBSOCKET_VERSION_SIZE);
+                const u8char *version=hgl::strstr(data,size,SEC_WEBSOCKET_VERSION,SEC_WEBSOCKET_VERSION_SIZE);
 
                 if(version)
                 {

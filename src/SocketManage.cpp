@@ -190,7 +190,7 @@ namespace hgl
         int SocketManage::Update(const double &time_out)
         {
             //将error_set放在这里，是为了保留它给外面的调用者使用
-            error_sets.ClearData();
+            error_sets.Clear();
 
             const int count=manage->Update(time_out,sock_recv_list,sock_send_list,sock_error_list);
 

@@ -81,7 +81,7 @@ namespace hgl
                 SAFE_CLEAR(ipstr);
                 ipstr=ThisAddress->CreateString();
 
-                LOG_HINT(U8_TEXT("Don't Connect to TCPServer ")+UTF8String(ipstr));
+                LOG_HINT(U8_TEXT("Don't Connect to TCPServer ")+UTF8String((u8char *)ipstr));
                 this->CloseSocket();
                 return(false);
             }

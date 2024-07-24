@@ -2,6 +2,7 @@
 #define HGL_NETWORK_SOCKET_MANAGE_INCLUDE
 
 #include<hgl/type/Map.h>
+#include<hgl/type/SortedSets.h>
 #include<hgl/network/SocketEvent.h>
 #include<hgl/network/TCPAccept.h>
 namespace hgl

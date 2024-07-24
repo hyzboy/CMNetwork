@@ -13,7 +13,7 @@ namespace hgl
         class WebSocketAccept:public TCPAccept
         {
         #ifdef _DEBUG
-            DataArray<char> data_out_str;
+            DataArray<u8char> data_out_str;
         #endif//_DEBUG
         protected:
 

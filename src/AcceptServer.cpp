@@ -67,7 +67,7 @@ namespace hgl
 
             addr->ToString(ipstr,IP_STR_MAX_SIZE);
 
-            LOG_INFO(U8_TEXT("AcceptServer Accept IP:")+UTF8String(ipstr)+U8_TEXT(" ,sock:")+UTF8String::numberOf(new_sock));
+            LOG_INFO(U8_TEXT("AcceptServer Accept IP:")+UTF8String((u8char *)ipstr)+U8_TEXT(" ,sock:")+UTF8String::numberOf(new_sock));
 
             return(new_sock);
         }

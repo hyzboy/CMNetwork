@@ -234,15 +234,15 @@ namespace hgl
             /**
              * 转换当前地址到一个可视字符串,字符串所需长度请使用GetIPStringMaxSize()获取
              */
-            virtual void ToString(char *,int)const=0;
+            virtual void ToString(u8char *,int)const=0;
 
             /**
              * 创建一个可视字符串地址，需自行delete[]
              */
-            virtual char *CreateString()const
+            virtual u8char *CreateString()const
             {
                 const int max_size=GetIPStringMaxSize();
-                char *ipstr=new char[max_size+1];
+                u8char *ipstr=new u8char[max_size+1];
 
                 ToString(ipstr,max_size);
 
@@ -324,9 +324,9 @@ namespace hgl
             const uint32 GetInt32IP()const{return addr.sin_addr.s_addr;}
             const ushort GetPort()const override;
 
-            static void ToString(char *str,const int,const in_addr *);
-            static void ToString(char *str,const int,const sockaddr_in *);
-            void ToString(char *str,const int)const override;
+            static void ToString(u8char *str,const int,const in_addr *);
+            static void ToString(u8char *str,const int,const sockaddr_in *);
+            void ToString(u8char *str,const int)const override;
 
             static int GetDomainIPList(List<in_addr> &addr_list,const char *domain,int _socktype,int _protocol);        ///<取得当指定域名的IPv4地址列表
             static int GetLocalIPList(List<in_addr> &addr_list,int _socktype,int _protocol);                            ///<取得本机的IPv4地址列表
@@ -392,9 +392,9 @@ namespace hgl
 
             const ushort GetPort()const override;
 
-            static void ToString(char *str,const int,const in6_addr *);
-            static void ToString(char *str,const int,const sockaddr_in6 *);
-            void ToString(char *str,const int)const override;
+            static void ToString(u8char *str,const int,const in6_addr *);
+            static void ToString(u8char *str,const int,const sockaddr_in6 *);
+            void ToString(u8char *str,const int)const override;
 
             static int GetDomainIPList(List<in6_addr> &addr_list,const char *domain,int _socktype,int _protocol);       ///<取得指定域名的IPv6地址列表
             static int GetLocalIPList(List<in6_addr> &addr_list,int _socktype,int _protocol);                           ///<取得本机的IPv6地址列表
