@@ -50,7 +50,7 @@ namespace hgl
         * @param filename 路径及文件名 /download/hgl.rar 之类
         * @return 打开文件是否成功
         */
-        bool HTTPInputStream::Open(IPAddress *host_ip,const UTF8String &host_name,const UTF8String &filename)
+        bool HTTPInputStream::Open(IPAddress *host_ip,const AnsiString &host_name,const AnsiString &filename)
         {
             Close();
 
@@ -71,7 +71,7 @@ namespace hgl
 
             if(!tcp)
             {
-                LOG_ERROR(U8_TEXT("Connect to HTTPServer failed: ")+UTF8String(host_ip_str));
+                LOG_ERROR("Connect to HTTPServer failed: "+AnsiString(host_ip_str));
                 RETURN_FALSE;
             }
 
@@ -91,7 +91,7 @@ namespace hgl
 
             if(tcp_os->WriteFully(http_header,len)!=len)
             {
-                LOG_ERROR(U8_TEXT("Send HTTP Get Info failed:")+UTF8String(host_ip_str));
+                LOG_ERROR("Send HTTP Get Info failed:"+AnsiString(host_ip_str));
                 delete tcp;
                 tcp=nullptr;
                 RETURN_FALSE;
@@ -147,8 +147,8 @@ namespace hgl
 
                 if(!second)break;
 
-                UTF8String key;
-                UTF8String value;
+                AnsiString key;
+                AnsiString value;
 
                 key.SetString(first,second-first);
 
@@ -160,7 +160,7 @@ namespace hgl
                 value.SetString(first,second-first);
                 offset=second;
 
-                response_list.Add(key,value);
+                response_list.CreateStringAttrib(key,value);
             }
         }
 
@@ -203,7 +203,7 @@ namespace hgl
             }
             else
             {
-                LOG_ERROR(U8_TEXT("HTTPServer error info: ")+UTF8String(http_header));
+                LOG_ERROR("HTTPServer error info: "+AnsiString(http_header));
                 return(-1);
             }
         }

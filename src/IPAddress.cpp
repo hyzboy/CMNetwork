@@ -86,7 +86,7 @@ namespace hgl
             return(true);
         }
 
-        bool GetHostname(UTF8String &name,const sockaddr *addr)
+        bool GetHostname(AnsiString &name,const sockaddr *addr)
         {
             char hostname[NI_MAXHOST];
             char server_info[NI_MAXSERV];
@@ -94,7 +94,7 @@ namespace hgl
             if(getnameinfo(addr,sizeof(struct sockaddr),hostname,NI_MAXHOST,server_info,NI_MAXSERV,NI_NUMERICSERV))
                 return(false);
 
-            name=(u8char *)hostname;
+            name=hostname;
             return(true);
         }
 
@@ -276,7 +276,7 @@ namespace hgl
         }
 
         bool IPv4Address::Bind(int ThisSocket,int reuse)const{return BindAddr<sockaddr,sockaddr_in>(ThisSocket,addr,reuse);}
-        bool IPv4Address::GetHostname(UTF8String &name)const{return hgl::network::GetHostname(name,(sockaddr *)&addr);}
+        bool IPv4Address::GetHostname(AnsiString &name)const{return hgl::network::GetHostname(name,(sockaddr *)&addr);}
 
         const ushort IPv4Address::GetPort()const{return addr.sin_port;}
 
@@ -366,7 +366,7 @@ namespace hgl
         }
 
         bool IPv6Address::Bind(int ThisSocket,int reuse)const{return BindAddr<sockaddr,sockaddr_in6>(ThisSocket,addr,reuse);}
-        bool IPv6Address::GetHostname(UTF8String &name)const{return hgl::network::GetHostname(name,(sockaddr *)&addr);}
+        bool IPv6Address::GetHostname(AnsiString &name)const{return hgl::network::GetHostname(name,(sockaddr *)&addr);}
 
         const ushort IPv6Address::GetPort()const{return addr.sin6_port;}
 
