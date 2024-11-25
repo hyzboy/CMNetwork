@@ -1,7 +1,7 @@
 ﻿#include"SocketManageBase.h"
 #include<hgl/network/Socket.h>
 #include<hgl/Time.h>
-#include<hgl/type/SortedSets.h>
+#include<hgl/type/SortedSet.h>
 #include<hgl/log/LogInfo.h>
 
 namespace hgl
@@ -17,7 +17,7 @@ namespace hgl
 
             int max_fd;
 
-            SortedSets<int> sock_id_list;
+            SortedSet<int> sock_id_list;
 
             fd_set  fd_sock_list;       //完整的sock列表
 
