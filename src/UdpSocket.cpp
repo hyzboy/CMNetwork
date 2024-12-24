@@ -67,7 +67,7 @@ namespace hgl
 //
 //             if((ThisSocket=socket(family,SOCK_DGRAM,IPPROTO_UDP))<0)
 //             {
-//                 LOG_ERROR(U16_TEXT("创建Socket失败！errno:")+UTF16String(GetLastSocketError()));
+//                 LOG_ERROR(U16_TEXT("创建Socket失败！errno:")+U16String(GetLastSocketError()));
 //                 RETURN_FALSE;
 //             }
 //

@@ -81,12 +81,12 @@ namespace hgl
                 SAFE_CLEAR(ipstr);
                 ipstr=ThisAddress->CreateString();
 
-                LOG_HINT(U8_TEXT("Don't Connect to TCPServer ")+UTF8String((u8char *)ipstr));
+                LOG_HINT(U8_TEXT("Don't Connect to TCPServer ")+U8String((u8char *)ipstr));
                 this->CloseSocket();
                 return(false);
             }
 
-//            LOG_INFO(u"connect "+u8_to_u16(host)+u':'+UTF16String(port)+u" ok,socket:"+UTF16String(ThisSocket));
+//            LOG_INFO(u"connect "+u8_to_u16(host)+u':'+U16String(port)+u" ok,socket:"+U16String(ThisSocket));
 
             SetBlock(true,TimeOut);    //阻塞模式
 

@@ -13,7 +13,7 @@ namespace hgl
          * @param size 信息头长度
          * @return 是否解晰成功
          */
-        bool GetWebSocketInfo(UTF8String &sec_websocket_key,UTF8String &sec_websocket_protocol,uint &sec_websocket_version,const u8char *data,const uint size)
+        bool GetWebSocketInfo(U8String &sec_websocket_key,U8String &sec_websocket_protocol,uint &sec_websocket_version,const u8char *data,const uint size)
         {
             constexpr u8char SEC_WEBSOCKET_KEY[]=U8_TEXT("Sec-WebSocket-Key: ");
             constexpr uint SEC_WEBSOCKET_KEY_SIZE=sizeof(SEC_WEBSOCKET_KEY)-1;      //sizeof的带\0所以要-1
@@ -38,7 +38,7 @@ namespace hgl
                 end=key;
                 while(*end!='\r')++end;
 
-                sec_websocket_key=UTF8String(key,end-key);
+                sec_websocket_key=U8String(key,end-key);
             }
 
             {
@@ -75,9 +75,9 @@ namespace hgl
         // * 生成WebSocket回复头
         // * @param result 回复头存放字符串
         // */
-        //void MakeWebSocketAccept(UTF8String &result,const UTF8String &sec_websocket_key,const UTF8String &sec_websocket_protocol)
+        //void MakeWebSocketAccept(U8String &result,const U8String &sec_websocket_key,const U8String &sec_websocket_protocol)
         //{
-        //    const UTF8String key_mask=sec_websocket_key+"258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
+        //    const U8String key_mask=sec_websocket_key+"258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 
         //    util::HashCodeSHA1 hc;
 
@@ -87,7 +87,7 @@ namespace hgl
 
         //    base64_encode(&mos,hc.code,hc.size());
 
-        //    const UTF8String sec_websocket_accept((char *)mos.GetData(),mos.GetSize());
+        //    const U8String sec_websocket_accept((char *)mos.GetData(),mos.GetSize());
 
         //    result="HTTP/1.1 101 Switching Protocols\r\n"
         //           "Upgrade: websocket\r\n"

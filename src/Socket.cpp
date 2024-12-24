@@ -66,7 +66,7 @@ namespace hgl
                 RETURN_ERROR(-3);
             }
 
-            LOG_INFO(U8_TEXT("Create ")+UTF8String((u8char *)(addr->GetProtocolName()))+U8_TEXT(" Socket OK: ")+UTF8String::numberOf(s));
+            LOG_INFO(U8_TEXT("Create ")+U8String((u8char *)(addr->GetProtocolName()))+U8_TEXT(" Socket OK: ")+U8String::numberOf(s));
 
             return s;
         }
@@ -92,7 +92,7 @@ namespace hgl
             ThisAddress=nullptr;
             ThisSocket=-1;
 
-//            LOG_INFO(u8"Socket Count ++: "+UTF8String(++socket_count));
+//            LOG_INFO(u8"Socket Count ++: "+U8String(++socket_count));
         }
 
         Socket::Socket(int sock,const IPAddress *addr)
@@ -109,7 +109,7 @@ namespace hgl
         {
             CloseSocket();
 
-//            LOG_INFO(u8"Socket Count --: "+UTF8String(--socket_count));
+//            LOG_INFO(u8"Socket Count --: "+U8String(--socket_count));
         }
 
         bool Socket::InitSocket(const IPAddress *addr)

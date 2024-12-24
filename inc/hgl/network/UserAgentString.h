@@ -46,7 +46,7 @@ namespace hgl
         /**
          * 生成一个firefox用户代理字符串
          */
-        UTF8String FirefoxUserAgent(FirefoxUserAgentConfig &cfg);
+        U8String FirefoxUserAgent(FirefoxUserAgentConfig &cfg);
     }//namespace webapi
 }//namespace hgl
 #endif//HGL_WEBAPI_BROWSER_AGENT_STRING_INCLUDE

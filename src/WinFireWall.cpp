@@ -192,7 +192,7 @@ namespace hgl
             FW_ERROR_CODE ret = FW_NOERROR;
             HRESULT hr;
     //        BSTR bstrFWProcessImageFileName = NULL;
-            UTF16String bstrFWProcessImageFileName;
+            U16String bstrFWProcessImageFileName;
             VARIANT_BOOL bFWEnabled;
             INetFwAuthorizedApplication* pFWApp = NULL;
             INetFwAuthorizedApplications* pFWApps = NULL;
@@ -260,9 +260,9 @@ namespace hgl
             HRESULT hr;
             bool bAppEnable;
             //BSTR bstrProcessImageFileName = NULL;
-            UTF16String bstrProcessImageFileName;
+            U16String bstrProcessImageFileName;
             //BSTR bstrRegisterName = NULL;
-            UTF16String bstrRegisterName;
+            U16String bstrRegisterName;
             INetFwAuthorizedApplication* pFWApp = NULL;
             INetFwAuthorizedApplications* pFWApps = NULL;
 
@@ -347,7 +347,7 @@ namespace hgl
             HRESULT hr;
             bool bAppEnable;
             //BSTR bstrProcessImageFileName = NULL;
-            UTF16String bstrProcessImageFileName;
+            U16String bstrProcessImageFileName;
             INetFwAuthorizedApplications* pFWApps = NULL;
 
             try
@@ -456,7 +456,7 @@ namespace hgl
             INetFwOpenPort* pFWOpenPort = NULL;
             INetFwOpenPorts* pFWOpenPorts = NULL;
             //BSTR bstrRegisterName = NULL;
-            UTF16String bstrRegisterName;
+            U16String bstrRegisterName;
             HRESULT hr;
 
             try

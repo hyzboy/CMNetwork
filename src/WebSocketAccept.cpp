@@ -53,16 +53,16 @@ namespace hgl
                 end+=HTTP_HEADER_END_SIZE;
                 total=end-ws_header.data();
 
-                UTF8String key;
-                UTF8String ws_protocol;
+                U8String key;
+                U8String ws_protocol;
                 uint       ws_version;
 
-                UTF8String ws_accept_protocol;
+                U8String ws_accept_protocol;
 
                 if(GetWebSocketInfo(key,ws_protocol,ws_version,ws_header.data(),total))
                     if(OnHandshake(ws_accept_protocol,ws_protocol,ws_version))
                     {
-                        UTF8String ws_return;
+                        U8String ws_return;
 
                         MakeWebSocketAccept(ws_return,key,ws_accept_protocol);
 
@@ -235,7 +235,7 @@ namespace hgl
 
                         DataToLowerHexStr(data_out_str.data(),(uint8 *)pack,msg_length,u8char(','));
 
-                        LOG_INFO(U8_TEXT("WebSocket[")+UTF8String::numberOf(ThisSocket)+U8_TEXT("] Recv binary [")+UTF8String::numberOf(msg_length)+U8_TEXT("]: ")+UTF8String(data_out_str.data()));
+                        LOG_INFO(U8_TEXT("WebSocket[")+U8String::numberOf(ThisSocket)+U8_TEXT("] Recv binary [")+U8String::numberOf(msg_length)+U8_TEXT("]: ")+U8String(data_out_str.data()));
                     #endif//_DEBUG
 
                         OnBinary(pack,msg_length,msg_fin);
@@ -338,7 +338,7 @@ namespace hgl
 
             DataToLowerHexStr(data_out_str.data(),(uint8 *)data,size,u8char(','));
 
-            LOG_INFO(U8_TEXT("WebSocket[")+UTF8String::numberOf(ThisSocket)+U8_TEXT("] Send binary [")+UTF8String::numberOf(size)+U8_TEXT("]: ")+UTF8String(data_out_str.data()));
+            LOG_INFO(U8_TEXT("WebSocket[")+U8String::numberOf(ThisSocket)+U8_TEXT("] Send binary [")+U8String::numberOf(size)+U8_TEXT("]: ")+U8String(data_out_str.data()));
         #endif//_DEBUG
 
             return SendFrame(0x2,data,size,fin)>0;

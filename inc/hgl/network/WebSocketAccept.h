@@ -49,7 +49,7 @@ namespace hgl
              * @param version 需求的WebSocket版本
              * @return 是否成功
              */
-            virtual bool OnHandshake(UTF8String &accept_protocol,const UTF8String &protocol,uint version)
+            virtual bool OnHandshake(U8String &accept_protocol,const U8String &protocol,uint version)
             {
                 accept_protocol=protocol;           //原样接收，如有需求请自行重载此函数处理
                 return(true);
@@ -72,7 +72,7 @@ namespace hgl
             bool SendBinary(void *,uint32,bool=true);
             bool SendText(void *,uint32,bool=true);
 
-            bool SendText(const UTF8String &str)
+            bool SendText(const U8String &str)
             {
                 return SendText(str.c_str(),str.Length());
             }

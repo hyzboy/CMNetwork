@@ -2,7 +2,7 @@
 #define HGL_NETWORK_SOCKET_MANAGE_INCLUDE
 
 #include<hgl/type/Map.h>
-#include<hgl/type/SortedSets.h>
+#include<hgl/type/SortedSet.h>
 #include<hgl/network/SocketEvent.h>
 #include<hgl/network/TCPAccept.h>
 namespace hgl
@@ -31,7 +31,7 @@ namespace hgl
                             sock_send_list,
                             sock_error_list;
 
-            SortedSets<TCPAccept *> error_sets;
+            SortedSet<TCPAccept *> error_sets;
 
         protected:
 
@@ -43,7 +43,7 @@ namespace hgl
 
         public:
 
-            const SortedSets<TCPAccept *> &GetErrorSocketSet(){return error_sets;}     ///<获取错误SOCKET合集
+            const SortedSet<TCPAccept *> &GetErrorSocketSet(){return error_sets;}     ///<获取错误SOCKET合集
 
         public:
 
