@@ -11,6 +11,8 @@ namespace hgl
     {
         class SocketManageBase;
 
+        using TCPAcceptSet=SortedSet<TCPAccept *>;
+
         /**
          * 最简单的服Socket管理类，直接在一个Update内处理socket的轮循和处理事件(不关心是recv还是send)<br>
          * 该类所有函数均为非线程安全，所以不可以直接在多线程中使用
@@ -31,7 +33,7 @@ namespace hgl
                             sock_send_list,
                             sock_error_list;
 
-            SortedSet<TCPAccept *> error_sets;
+            TCPAcceptSet error_sets;
 
         protected:
 
@@ -43,7 +45,7 @@ namespace hgl
 
         public:
 
-            const SortedSet<TCPAccept *> &GetErrorSocketSet(){return error_sets;}     ///<获取错误SOCKET合集
+            const TCPAcceptSet &GetErrorSocketSet(){return error_sets;}         ///<获取错误SOCKET合集
 
         public:
 
