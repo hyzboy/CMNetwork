@@ -50,7 +50,7 @@ namespace hgl
                     end=protocol;
                     while(*end!='\r')++end;
 
-                    sec_websocket_protocol.SetString(protocol,end-protocol);
+                    sec_websocket_protocol.fromString(protocol,end-protocol);
                 }
             }
 

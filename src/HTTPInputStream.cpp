@@ -127,7 +127,7 @@ namespace hgl
             if(!offset)
                 return;
 
-            response_info.SetString(http_header,offset-http_header);
+            response_info.fromString(http_header,offset-http_header);
 
             char *first=strchr(http_header,' ');
 
@@ -150,14 +150,14 @@ namespace hgl
                 AnsiString key;
                 AnsiString value;
 
-                key.SetString(first,second-first);
+                key.fromString(first,second-first);
 
                 first=second+2;
                 second=strstr(first,http_header_size-(first-http_header),HTTP_HEADER_SPLITE,HTTP_HEADER_SPLITE_SIZE);
 
                 if(!second)break;
 
-                value.SetString(first,second-first);
+                value.fromString(first,second-first);
                 offset=second;
 
                 response_list.CreateStringAttrib(key,value);
