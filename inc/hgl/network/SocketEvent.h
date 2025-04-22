@@ -18,7 +18,7 @@ namespace hgl
             };
         };//struct SocketEvent
 
-        using SocketEventList=List<SocketEvent>;
+        using SocketEventList=ArrayList<SocketEvent>;
     }//namespace network
 }//namespace hgl
 #endif//HGL_NETWORK_SOCKET_EVENT_INCLUDE
