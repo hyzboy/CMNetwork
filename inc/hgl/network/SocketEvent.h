@@ -2,7 +2,7 @@
 #define HGL_NETWORK_SOCKET_EVENT_INCLUDE
 
 #include<hgl/platform/Platform.h>
-#include<hgl/type/List.h>
+#include<hgl/type/ArrayList.h>
 namespace hgl
 {
     namespace network

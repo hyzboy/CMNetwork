@@ -68,7 +68,7 @@
 #endif//HGL_OS == HGL_OS_Windows
 
 #include<hgl/type/DataType.h>
-#include<hgl/type/List.h>
+#include<hgl/type/ArrayList.h>
 #include<hgl/type/String.h>
 #include<hgl/type/StrChar.h>
 
