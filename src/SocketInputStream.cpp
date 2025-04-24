@@ -154,7 +154,7 @@ namespace hgl
             size_t left_bytes = size;
 #endif//HGL_OS == HGL_OS_Windows
 
-//             const double start_time=GetDoubleTime();
+//             const double start_time=GetPreciseTime();
 
             while(left_bytes>0)
             {
@@ -212,7 +212,7 @@ namespace hgl
                 }
             }
 
-//             const double end_time=GetDoubleTime();
+//             const double end_time=GetPreciseTime();
 
 //             LOG_INFO(OS_TEXT("SocketInputStream::ReadFully() time: ")+OSString(end_time-start_time));
 
