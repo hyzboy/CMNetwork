@@ -2,6 +2,7 @@
 #define HGL_NETWORK_SOCKET_OUTPUT_STREAM_INCLUDE
 
 #include<hgl/io/OutputStream.h>
+#include<hgl/log/ObjectLogger.h>
 namespace hgl
 {
     namespace network
@@ -11,6 +12,8 @@ namespace hgl
         */
         class SocketOutputStream:public io::OutputStream
         {
+            OBJECT_LOGGER
+
         protected:
 
             int sock;
@@ -21,6 +24,7 @@ namespace hgl
 
             SocketOutputStream(int s=-1)
             {
+                Log.SetLoggerInstanceName(U8String::numberOf(s));
                 SetSocket(s);
             }
 

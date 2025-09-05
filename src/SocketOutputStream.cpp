@@ -33,20 +33,20 @@ namespace hgl
         {
             if(sock==-1)
             {
-                LOG_ERROR(OS_TEXT("SocketOutputStream::Write() fatal error,sock=-1"));
+                LogError(OS_TEXT("SocketOutputStream::Write() fatal error,sock=-1"));
                 return(-1);
             }
 
             if(size==0)return(0);
             if(size<0)
             {
-                LOG_ERROR(OS_TEXT("SocketOutputStream::Write() fatal error,size<0,sock=")+OSString::numberOf(sock));
+                LogError(OS_TEXT("SocketOutputStream::Write() fatal error,size<0,sock=")+OSString::numberOf(sock));
                 return(-3);
             }
 
             if(!buf)
             {
-                LOG_ERROR(OS_TEXT("SocketOutputStream::Write() fatal error,buf=nullptr,sock=")+OSString::numberOf(sock));
+                LogError(OS_TEXT("SocketOutputStream::Write() fatal error,buf=nullptr,sock=")+OSString::numberOf(sock));
                 return(-2);
             }
 
@@ -56,13 +56,13 @@ namespace hgl
             {
                 total+=result;
 
-//                LOG_INFO(OS_TEXT("Socket ")+OSString::numberOf(sock)+OS_TEXT(" send ")+OSString::numberOf(size)+OS_TEXT(" bytes ok,result ")+OSString(result)+OS_TEXT(" total send ")+OSString(total)+OS_TEXT(" bytes."));
+                LogVerbose(OS_TEXT("Socket ")+OSString::numberOf(sock)+OS_TEXT(" send ")+OSString::numberOf(size)+OS_TEXT(" bytes ok,result ")+OSString::numberOf(result)+OS_TEXT(" total send ")+OSString::numberOf(total)+OS_TEXT(" bytes."));
             }
             else
             {
                 int err=GetLastSocketError();
 
-                LOG_INFO(OS_TEXT("Socket ")+OSString::numberOf(sock)+OS_TEXT(" send ")+OSString::numberOf(size)+OS_TEXT(" bytes failed,,error: ")+OSString::numberOf(err)+OS_TEXT(",")+GetSocketString(err));
+                LogInfo(OS_TEXT("Socket ")+OSString::numberOf(sock)+OS_TEXT(" send ")+OSString::numberOf(size)+OS_TEXT(" bytes failed,,error: ")+OSString::numberOf(err)+OS_TEXT(",")+GetSocketString(err));
             }
 
             return(result);
@@ -79,7 +79,7 @@ namespace hgl
         {
             if(sock==-1)
             {
-                LOG_ERROR(OS_TEXT("SocketOutputStream::WriteFully() fatal error,sock=-1"));
+                LogError(OS_TEXT("SocketOutputStream::WriteFully() fatal error,sock=-1"));
                 return(-1);
             }
 
@@ -87,13 +87,13 @@ namespace hgl
 
             if(size<0)
             {
-                LOG_ERROR(OS_TEXT("SocketOutputStream::WriteFully() fatal error,size<0,sock=")+OSString::numberOf(sock));
+                LogError(OS_TEXT("SocketOutputStream::WriteFully() fatal error,size<0,sock=")+OSString::numberOf(sock));
                 return(-3);
             }
 
             if(!buf)
             {
-                LOG_ERROR(OS_TEXT("SocketOutputStream::WriteFully() fatal error,buf=nullptr,sock=")+OSString::numberOf(sock));
+                LogError(OS_TEXT("SocketOutputStream::WriteFully() fatal error,buf=nullptr,sock=")+OSString::numberOf(sock));
                 return(-2);
             }
 
@@ -115,7 +115,7 @@ namespace hgl
             {
                 result=send(sock,p,left_bytes,0);
 
-//                 LOG_ERROR(OS_TEXT("socket send  result, left_bytes:  ")+OSString::numberOf(sock)+OSString(" , ")+OSString((int)result)+OSString(" , ")+OSString((int)left_bytes));
+//                 LogError(OS_TEXT("socket send  result, left_bytes:  ")+OSString::numberOf(sock)+OSString(" , ")+OSString((int)result)+OSString(" , ")+OSString((int)left_bytes));
                 if(result==0)
                 {
                     sock=-1;
@@ -142,11 +142,11 @@ namespace hgl
                     err_str=GetSocketString(err);
                     if(err_str)
                     {
-                        LOG_ERROR(OS_TEXT("SocketOutputStream::WriteFully error,Socket:")+OSString::numberOf(sock)+OS_TEXT(",error code=")+OSString::numberOf(err)+OS_TEXT(":")+OSString(err_str));
+                        LogError(OS_TEXT("SocketOutputStream::WriteFully error,Socket:")+OSString::numberOf(sock)+OS_TEXT(",error code=")+OSString::numberOf(err)+OS_TEXT(":")+OSString(err_str));
                     }
                     else
                     {
-                        LOG_ERROR(OS_TEXT("SocketOutputStream::WriteFully error,Socket:")+OSString::numberOf(sock)+OS_TEXT(",error code=")+OSString::numberOf(err));
+                        LogError(OS_TEXT("SocketOutputStream::WriteFully error,Socket:")+OSString::numberOf(sock)+OS_TEXT(",error code=")+OSString::numberOf(err));
                     }
                     sock=-1;
                     break;
@@ -158,7 +158,7 @@ namespace hgl
 
 //             const double end_time=GetPreciseTime();
 
-//             LOG_INFO(OS_TEXT("SocketOutputStream::WriteFully() time: ")+OSString(end_time-start_time));
+//             LogInfo(OS_TEXT("SocketOutputStream::WriteFully() time: ")+OSString(end_time-start_time));
 
             total+=(p-(char *)buf);
 

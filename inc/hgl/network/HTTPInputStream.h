@@ -17,6 +17,10 @@ namespace hgl
         */
         class HTTPInputStream:public io::InputStream                                                ///HTTP流式访问类
         {
+            OBJECT_LOGGER
+
+        private:
+
             TCPClient *tcp;
 
             InputStream *tcp_is;

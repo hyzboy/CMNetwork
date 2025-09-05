@@ -2,6 +2,7 @@
 #define HGL_NETWORK_SOCKET_INPUT_STREAM_INCLUDE
 
 #include<hgl/io/InputStream.h>
+#include<hgl/log/ObjectLogger.h>
 namespace hgl
 {
     template<typename T> class DataArray;
@@ -13,6 +14,8 @@ namespace hgl
         */
         class SocketInputStream:public io::InputStream
         {
+            OBJECT_LOGGER
+
         protected:
 
             int sock;

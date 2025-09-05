@@ -38,7 +38,7 @@ namespace hgl
                 if(size==0)continue;
                 if(size<0)
                 {
-                    LOG_ERROR(OS_TEXT("WebSocketAccept::WebSocketHandshake() read data error"));
+                    LogError(OS_TEXT("WebSocketAccept::WebSocketHandshake() read data error"));
                     break;
                 }
 
@@ -235,7 +235,7 @@ namespace hgl
 
                         DataToLowerHexStr(data_out_str.data(),(uint8 *)pack,msg_length,u8char(','));
 
-                        LOG_INFO(U8_TEXT("WebSocket[")+U8String::numberOf(ThisSocket)+U8_TEXT("] Recv binary [")+U8String::numberOf(msg_length)+U8_TEXT("]: ")+U8String(data_out_str.data()));
+                        LogInfo(U8_TEXT("WebSocket[")+U8String::numberOf(ThisSocket)+U8_TEXT("] Recv binary [")+U8String::numberOf(msg_length)+U8_TEXT("]: ")+U8String(data_out_str.data()));
                     #endif//_DEBUG
 
                         OnBinary(pack,msg_length,msg_fin);
@@ -261,7 +261,7 @@ namespace hgl
                 }
                 else
                 {
-                    LOG_PROBLEM(OS_TEXT("WebSocketAccept,opcode error,opcode:")+OSString::numberOf(msg_opcode)+OS_TEXT(",length:")+OSString::numberOf(msg_length));
+                    LogWarning(OS_TEXT("WebSocketAccept,opcode error,opcode:")+OSString::numberOf(msg_opcode)+OS_TEXT(",length:")+OSString::numberOf(msg_length));
                     OnError();
                 }
 
@@ -338,7 +338,7 @@ namespace hgl
 
             DataToLowerHexStr(data_out_str.data(),(uint8 *)data,size,u8char(','));
 
-            LOG_INFO(U8_TEXT("WebSocket[")+U8String::numberOf(ThisSocket)+U8_TEXT("] Send binary [")+U8String::numberOf(size)+U8_TEXT("]: ")+U8String(data_out_str.data()));
+            LogInfo(U8_TEXT("WebSocket[")+U8String::numberOf(ThisSocket)+U8_TEXT("] Send binary [")+U8String::numberOf(size)+U8_TEXT("]: ")+U8String(data_out_str.data()));
         #endif//_DEBUG
 
             return SendFrame(0x2,data,size,fin)>0;

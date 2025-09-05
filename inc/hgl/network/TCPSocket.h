@@ -2,6 +2,7 @@
 #define HGL_TCP_SOCKET_INCLUDE
 
 #include<hgl/network/Socket.h>
+#include<hgl/log/ObjectLogger.h>
 namespace hgl
 {
     namespace network
@@ -14,6 +15,8 @@ namespace hgl
         */
         class TCPSocket:public Socket                                                               ///TCP连接处理基类
         {
+            OBJECT_LOGGER
+
         protected:
 
             timeval time_out;

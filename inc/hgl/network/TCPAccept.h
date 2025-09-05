@@ -34,6 +34,8 @@ namespace hgl
          */
         class TCPAccept:public TCPSocket
         {
+            OBJECT_LOGGER
+
         protected:
 
             SocketInputStream *sis=nullptr;

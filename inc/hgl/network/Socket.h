@@ -2,6 +2,7 @@
 #define HGL_SOCKET_INCLUDE
 
 #include<hgl/network/IP.h>
+#include<hgl/log/ObjectLogger.h>
 
 //#define HGL_RECV_BYTE_COUNT           ///<接收字节数统计(调试用)
 //#define HGL_SEND_BYTE_COUNT           ///<发送字节数统计(调试用)
@@ -108,6 +109,8 @@ namespace hgl
         */
         class Socket                                                                                    ///Socket基类
         {
+            OBJECT_LOGGER
+
         protected:
 
             IPAddress *ThisAddress;                                                                     ///<本Socket地址

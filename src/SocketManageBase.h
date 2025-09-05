@@ -2,6 +2,7 @@
 #define HGL_NETWORK_SOCKET_MANAGE_BASE_INCLUDE
 
 #include<hgl/network/SocketEvent.h>
+#include<hgl/log/ObjectLogger.h>
 namespace hgl
 {
     namespace network
@@ -11,6 +12,8 @@ namespace hgl
          */
         class SocketManageBase
         {
+            OBJECT_LOGGER
+
         public:
 
             virtual ~SocketManageBase()=default;

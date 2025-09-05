@@ -57,6 +57,8 @@ namespace hgl
 
         TCPClient::TCPClient(int sock,const IPAddress *addr):TCPSocket(sock,addr)
         {
+            Log.SetLoggerInstanceName(U8String::numberOf(sock));
+
             InitPrivate(sock);
         }
 
@@ -81,12 +83,14 @@ namespace hgl
                 SAFE_CLEAR(ipstr);
                 ipstr=ThisAddress->CreateString();
 
-                LOG_HINT(U8_TEXT("Don't Connect to TCPServer ")+U8String((u8char *)ipstr));
+                LogHint(U8_TEXT("Don't Connect to TCPServer ")+U8String((u8char *)ipstr));
                 this->CloseSocket();
                 return(false);
             }
 
-//            LOG_INFO(u"connect "+u8_to_u16(host)+u':'+U16String(port)+u" ok,socket:"+U16String(ThisSocket));
+            Log.SetLoggerInstanceName(U8String::numberOf(ThisSocket));
+
+            LogInfo(U16_TEXT("connected to ")+ToU16String((u8char *)ipstr)+U16_TEXT(" ok,socket:")+U16String::numberOf(ThisSocket));
 
             SetBlock(true,TimeOut);    //阻塞模式
 

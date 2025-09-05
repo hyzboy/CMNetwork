@@ -11,6 +11,10 @@ namespace hgl
          */
         class AcceptServer:public ServerSocket                                                      ///使用Accept创建接入的服务器基类
         {
+            OBJECT_LOGGER
+
+        private:
+
             char *ipstr;
 
             fd_set accept_set;

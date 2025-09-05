@@ -1,4 +1,4 @@
-﻿#include<hgl/log/LogInfo.h>
+﻿#include<hgl/log/ObjectLogger.h>
 #include<hgl/network/UdpSocket.h>
 #include<string.h>
 
@@ -67,7 +67,7 @@ namespace hgl
 //
 //             if((ThisSocket=socket(family,SOCK_DGRAM,IPPROTO_UDP))<0)
 //             {
-//                 LOG_ERROR(U16_TEXT("创建Socket失败！errno:")+U16String(GetLastSocketError()));
+//                 LogError(U16_TEXT("创建Socket失败！errno:")+U16String(GetLastSocketError()));
 //                 RETURN_FALSE;
 //             }
 //
@@ -108,7 +108,7 @@ namespace hgl
     #ifdef _DEBUG
             if(ThisSocket==-1)
             {
-                LOG_HINT(U16_TEXT("UDPSocket没有调用Create"));
+                GLogHint(U16_TEXT("UDPSocket没有调用Create"));
                 return(-1);
             }
     #endif//
@@ -127,7 +127,7 @@ namespace hgl
     #ifdef _DEBUG
             if(ThisSocket==-1)
             {
-                LOG_HINT(U16_TEXT("UDPSocket没有调用Create"));
+                GLogHint(U16_TEXT("UDPSocket没有调用Create"));
                 return(-1);
             }
     #endif//
@@ -146,7 +146,7 @@ namespace hgl
     #ifdef _DEBUG
             if(ThisSocket==-1)
             {
-                LOG_HINT(U16_TEXT("UDPSocket没有调用Create"));
+                GLogHint(U16_TEXT("UDPSocket没有调用Create"));
                 return(-1);
             }
     #endif//

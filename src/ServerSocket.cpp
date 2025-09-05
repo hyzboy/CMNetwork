@@ -50,7 +50,7 @@ namespace hgl
 
             if(ThisSocket<0)
             {
-                LOG_HINT(OS_TEXT("Create TCP Server Socket Failed!"));
+                LogHint(OS_TEXT("Create TCP Server Socket Failed!"));
                 return(false);
             }
 

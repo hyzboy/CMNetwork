@@ -31,13 +31,13 @@ namespace hgl
                 {
                     if(sock->OnSocketRecv(se->error)<0)
                     {
-                        LOG_INFO(OS_TEXT("OnSocketRecv return Error,sock:")+OSString::numberOf(se->sock));
+                        LogInfo(OS_TEXT("OnSocketRecv return Error,sock:")+OSString::numberOf(se->sock));
                         error_sets.Add(sock);
                     }
                 }
                 else
                 {
-                    LOG_ERROR(OS_TEXT("Fatal error,can't find socket in SocketList,sock is ")+OSString::numberOf(se->sock));
+                    LogError(OS_TEXT("Fatal error,can't find socket in SocketList,sock is ")+OSString::numberOf(se->sock));
                 }
 
                 ++se;
@@ -61,13 +61,13 @@ namespace hgl
                 {
                     if(sock->OnSocketSend(se->size)<0)
                     {
-                        LOG_INFO(OS_TEXT("OnSocketSend return Error,sock:")+OSString::numberOf(se->sock));
+                        LogInfo(OS_TEXT("OnSocketSend return Error,sock:")+OSString::numberOf(se->sock));
                         error_sets.Add(sock);
                     }
                 }
                 else
                 {
-                    LOG_ERROR(OS_TEXT("Fatal error,can't find socket in SocketList,sock is ")+OSString::numberOf(se->sock));
+                    LogError(OS_TEXT("Fatal error,can't find socket in SocketList,sock is ")+OSString::numberOf(se->sock));
                 }
 
                 ++se;
@@ -89,13 +89,13 @@ namespace hgl
             {
                 if(socket_list.Get(se->sock,sock))
                 {
-                    LOG_INFO(OS_TEXT("SocketError,sock:")+OSString::numberOf(se->sock)+OS_TEXT(",errno:")+OSString::numberOf(se->error));
+                    LogInfo(OS_TEXT("SocketError,sock:")+OSString::numberOf(se->sock)+OS_TEXT(",errno:")+OSString::numberOf(se->error));
                     sock->OnSocketError(se->error);
                     error_sets.Add(sock);
                 }
                 else
                 {
-                    LOG_ERROR(OS_TEXT("Fatal error,can't find socket in SocketList,sock is ")+OSString::numberOf(se->sock));
+                    LogError(OS_TEXT("Fatal error,can't find socket in SocketList,sock is ")+OSString::numberOf(se->sock));
                 }
 
                 ++se;
@@ -127,7 +127,7 @@ namespace hgl
 
             if(!socket_list.Add(s->ThisSocket,s))
             {
-                LOG_ERROR(OS_TEXT("repeat append socket to manage,sock:")+OSString::numberOf(s->ThisSocket));
+                LogError(OS_TEXT("repeat append socket to manage,sock:")+OSString::numberOf(s->ThisSocket));
                 return(false);
             }
 
@@ -162,7 +162,7 @@ namespace hgl
 
             if(!socket_list.DeleteByKey(s->ThisSocket))
             {
-                LOG_ERROR(OS_TEXT("socket don't in SocketManage,sock:")+OSString::numberOf(s->ThisSocket));
+                LogError(OS_TEXT("socket don't in SocketManage,sock:")+OSString::numberOf(s->ThisSocket));
                 return(false);
             }
 

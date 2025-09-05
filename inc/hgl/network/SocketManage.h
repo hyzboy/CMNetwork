@@ -19,6 +19,8 @@ namespace hgl
          */
         class SocketManage
         {
+            OBJECT_LOGGER
+
         protected:
 
             using SocketList=Map<int,TCPAccept *>;

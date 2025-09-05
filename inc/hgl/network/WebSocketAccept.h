@@ -12,6 +12,8 @@ namespace hgl
          */
         class WebSocketAccept:public TCPAccept
         {
+            OBJECT_LOGGER
+
         #ifdef _DEBUG
             DataArray<u8char> data_out_str;
         #endif//_DEBUG

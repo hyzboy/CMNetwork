@@ -2,7 +2,7 @@
 #include<hgl/io/DataInputStream.h>
 #include<hgl/network/TCPSocket.h>
 #include<hgl/type/DataArray.h>
-#include<hgl/log/LogInfo.h>
+#include<hgl/log/ObjectLogger.h>
 
 namespace hgl
 {
@@ -21,7 +21,9 @@ namespace hgl
     {
         SocketInputStream::SocketInputStream(int s)
         {
-//            LOG_INFO(OS_TEXT("SocketInputStream::SocketInputStream(")+OSString(s)+OS_TEXT(")"));
+            Log.SetLoggerInstanceName(U8String::numberOf(s));
+
+            LogInfo(OS_TEXT("SocketInputStream::SocketInputStream(")+OSString::numberOf(s)+OS_TEXT(")"));
 
             SetSocket(s);
             mb=new DataArray<char>();
@@ -29,7 +31,7 @@ namespace hgl
 
         SocketInputStream::~SocketInputStream()
         {
-//            LOG_INFO(OS_TEXT("SocketInputStream::~SocketInputStream(")+OSString::numberOf(sock)+OS_TEXT(")"));
+            LogInfo(OS_TEXT("SocketInputStream::~SocketInputStream(")+OSString::numberOf(sock)+OS_TEXT(")"));
 
             SAFE_CLEAR(mb);
         }
@@ -45,20 +47,20 @@ namespace hgl
         {
             if(sock==-1)
             {
-                LOG_ERROR(OS_TEXT("SocketInputStream::Read() fatal error,sock=-1"));
+                LogError(OS_TEXT("SocketInputStream::Read() fatal error,sock=-1"));
                 return(-1);
             }
 
             if(size==0)return(0);
             if(size<0)
             {
-                LOG_ERROR(OS_TEXT("SocketInputStream::Read() fatal error,size<0,sock=")+OSString::numberOf(sock));
+                LogError(OS_TEXT("SocketInputStream::Read() fatal error,size<0,sock=")+OSString::numberOf(sock));
                 return(-3);
             }
 
             if(!buf)
             {
-                LOG_ERROR(OS_TEXT("SocketInputStream::Read() fatal error,buf=nullptr,sock=")+OSString::numberOf(sock));
+                LogError(OS_TEXT("SocketInputStream::Read() fatal error,buf=nullptr,sock=")+OSString::numberOf(sock));
                 return(-2);
             }
 
@@ -68,7 +70,7 @@ namespace hgl
             {
                 total+=result;
 
-//                LOG_INFO(OS_TEXT("Socket ")+OSString::numberOf(sock)+OS_TEXT(" recv ")+OSString::numberOf(size)+OS_TEXT(" bytes ok,result ")+OSString(result)+OS_TEXT(" total recv ")+OSString(total)+OS_TEXT(" bytes."));
+                LogVerbose(OS_TEXT("Socket ")+OSString::numberOf(sock)+OS_TEXT(" recv ")+OSString::numberOf(size)+OS_TEXT(" bytes ok,result ")+OSString::numberOf(result)+OS_TEXT(" total recv ")+OSString::numberOf(total)+OS_TEXT(" bytes."));
             }
             else if(result<0)
             {
@@ -77,7 +79,7 @@ namespace hgl
                 if(err==nseWouldBlock)
                     return 0;
 
-                LOG_INFO(OS_TEXT("Socket ")+OSString::numberOf(sock)+OS_TEXT(" recv ")+OSString::numberOf(size)+OS_TEXT(" bytes failed,error: ")+OSString::numberOf(err)+OS_TEXT(",")+GetSocketString(err));
+                LogInfo(OS_TEXT("Socket ")+OSString::numberOf(sock)+OS_TEXT(" recv ")+OSString::numberOf(size)+OS_TEXT(" bytes failed,error: ")+OSString::numberOf(err)+OS_TEXT(",")+GetSocketString(err));
             }
 
             return(result);
@@ -94,19 +96,19 @@ namespace hgl
         {
             if(sock==-1)
             {
-                LOG_ERROR(OS_TEXT("SocketInputStream::Peek() fatal error,sock=-1"));
+                LogError(OS_TEXT("SocketInputStream::Peek() fatal error,sock=-1"));
                 return(-1);
             }
 
             if(!buf)
             {
-                LOG_ERROR(OS_TEXT("SocketInputStream::Peek() fatal error,buf=nullptr,sock=")+OSString::numberOf(sock));
+                LogError(OS_TEXT("SocketInputStream::Peek() fatal error,buf=nullptr,sock=")+OSString::numberOf(sock));
                 return(-2);
             }
 
             if(size<=0)
             {
-                LOG_ERROR(OS_TEXT("SocketInputStream::Peek() fatal error,size<=0,sock=")+OSString::numberOf(sock));
+                LogError(OS_TEXT("SocketInputStream::Peek() fatal error,size<=0,sock=")+OSString::numberOf(sock));
                 return(-3);
             }
 
@@ -124,20 +126,20 @@ namespace hgl
         {
             if(sock==-1)
             {
-                LOG_ERROR(OS_TEXT("SocketInputStream::ReadFully() fatal error,sock=-1"));
+                LogError(OS_TEXT("SocketInputStream::ReadFully() fatal error,sock=-1"));
                 return(-1);
             }
 
             if(size==0)return(0);
             if(size<0)
             {
-                LOG_ERROR(OS_TEXT("SocketInputStream::ReadFully() fatal error,size<0,sock=")+OSString::numberOf(sock));
+                LogError(OS_TEXT("SocketInputStream::ReadFully() fatal error,size<0,sock=")+OSString::numberOf(sock));
                 return(-3);
             }
 
             if(!buf)
             {
-                LOG_ERROR(OS_TEXT("SocketInputStream::ReadFully() fatal error,buf=nullptr,sock=")+OSString::numberOf(sock));
+                LogError(OS_TEXT("SocketInputStream::ReadFully() fatal error,buf=nullptr,sock=")+OSString::numberOf(sock));
                 return(-2);
             }
 
@@ -189,17 +191,17 @@ namespace hgl
 //                             continue;
 //                         }
 
-                        LOG_ERROR(OS_TEXT("SocketInputStream::ReadFully TimeOut,Socket:")+OSString::numberOf(sock));
+                        LogError(OS_TEXT("SocketInputStream::ReadFully TimeOut,Socket:")+OSString::numberOf(sock));
                     }
 
                     err_str=GetSocketString(err);
                     if(err_str)
                     {
-                        LOG_ERROR(OS_TEXT("SocketInputStream::ReadFully error,Socket:")+OSString::numberOf(sock)+OS_TEXT(",error code=")+OSString::numberOf(err)+OS_TEXT(":")+OSString(err_str));
+                        LogError(OS_TEXT("SocketInputStream::ReadFully error,Socket:")+OSString::numberOf(sock)+OS_TEXT(",error code=")+OSString::numberOf(err)+OS_TEXT(":")+OSString(err_str));
                     }
                     else
                     {
-                        LOG_ERROR(OS_TEXT("SocketInputStream::ReadFully error,Socket:")+OSString::numberOf(sock)+OS_TEXT(",error code=")+OSString::numberOf(err));
+                        LogError(OS_TEXT("SocketInputStream::ReadFully error,Socket:")+OSString::numberOf(sock)+OS_TEXT(",error code=")+OSString::numberOf(err));
                     }
 
                     sock=-1;
@@ -214,13 +216,13 @@ namespace hgl
 
 //             const double end_time=GetPreciseTime();
 
-//             LOG_INFO(OS_TEXT("SocketInputStream::ReadFully() time: ")+OSString(end_time-start_time));
+//             LogInfo(OS_TEXT("SocketInputStream::ReadFully() time: ")+OSString(end_time-start_time));
 
 //             #ifdef _DEBUG
 //             result=(p-(char *)buf);
 //             total+=result;
 //
-//             LOG_INFO(OS_TEXT("Socket ")+OSString::numberOf(sock)+OS_TEXT(" recv ")+OSString(result)+OS_TEXT(" bytes,total recv ")+OSString(total)+OS_TEXT(" bytes."));
+//             LogInfo(OS_TEXT("Socket ")+OSString::numberOf(sock)+OS_TEXT(" recv ")+OSString(result)+OS_TEXT(" bytes,total recv ")+OSString(total)+OS_TEXT(" bytes."));
 //            #else
             total+=(p-(char *)buf);
 //             #endif//_DEBUG

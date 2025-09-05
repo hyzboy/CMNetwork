@@ -4,6 +4,7 @@
 #include<hgl/network/TCPSocket.h>
 #include<hgl/io/InputStream.h>
 #include<hgl/io/OutputStream.h>
+#include<hgl/log/ObjectLogger.h>
 namespace hgl
 {
     namespace network
@@ -13,6 +14,8 @@ namespace hgl
         */
         class TCPClient:public TCPSocket                                                                ///TCP客户端处理类
         {
+            OBJECT_LOGGER
+            
             io::InputStream *sis;
             io::OutputStream *sos;
 

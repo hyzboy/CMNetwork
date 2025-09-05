@@ -11,6 +11,8 @@ namespace hgl
          */
         class ServerSocket                                                                          ///服务器端Socket共用基类
         {
+            OBJECT_LOGGER
+
         protected:
 
             int ThisSocket;

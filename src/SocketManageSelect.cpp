@@ -12,6 +12,10 @@ namespace hgl
     {
         class SocketManageSelect:public SocketManageBase
         {
+            OBJECT_LOGGER
+
+        private:
+
             int max_connect;
             int cur_count;
 
@@ -51,7 +55,7 @@ namespace hgl
 
                 cur_count++;
 
-                LOG_INFO(OS_TEXT("Join ")+OSString::numberOf(sock)+OS_TEXT(" to SocketManageSelect"));
+                LogInfo(OS_TEXT("Join ")+OSString::numberOf(sock)+OS_TEXT(" to SocketManageSelect"));
 
                 return(true);
             }
@@ -64,7 +68,7 @@ namespace hgl
 
                 sock_id_list.Delete(sock);
 
-                LOG_INFO(OS_TEXT("Unjoin ")+OSString::numberOf(sock)+OS_TEXT(" from SocketManageSelect"));
+                LogInfo(OS_TEXT("Unjoin ")+OSString::numberOf(sock)+OS_TEXT(" from SocketManageSelect"));
 
                 return(true);
             }
@@ -122,7 +126,7 @@ namespace hgl
 
                 if(select(max_fd+1,&fd_recv_list,&fd_send_list,&fd_error_list,time_par)<0)
                 {
-                    LOG_INFO(OS_TEXT("select return -1,errno: ")+OSString::numberOf(errno));
+                    LogInfo(OS_TEXT("select return -1,errno: ")+OSString::numberOf(errno));
 
                     if(errno==EBADF
                      ||errno==EFAULT

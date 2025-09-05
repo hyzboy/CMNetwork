@@ -1,5 +1,5 @@
 ﻿#include<hgl/network/TCPSocket.h>
-#include<hgl/log/LogInfo.h>
+#include<hgl/log/ObjectLogger.h>
 
 #if HGL_OS != HGL_OS_Windows
 #include<netinet/tcp.h>

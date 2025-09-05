@@ -1,5 +1,5 @@
 ﻿#include<hgl/network/Socket.h>
-#include<hgl/log/LogInfo.h>
+#include<hgl/log/ObjectLogger.h>
 #include<time.h>
 #include<iostream>
 
@@ -57,7 +57,7 @@ namespace hgl
             {
                 const int sock_error=GetLastSocketError();      //在这里定义一个，是为了调试方便可以查看
 
-                LOG_ERROR(  OS_TEXT("CreateSocket(domain=")+OSString::numberOf(addr->GetFamily())+
+                GLogError(  OS_TEXT("CreateSocket(domain=")+OSString::numberOf(addr->GetFamily())+
                             OS_TEXT(",type=")+OSString::numberOf(addr->GetSocketType())+
                             OS_TEXT(",protocol=")+OSString::numberOf(protocol)+
                             OS_TEXT(") return ")+OSString::numberOf(s)+
@@ -66,7 +66,7 @@ namespace hgl
                 RETURN_ERROR(-3);
             }
 
-            LOG_INFO(U8_TEXT("Create ")+U8String((u8char *)(addr->GetProtocolName()))+U8_TEXT(" Socket OK: ")+U8String::numberOf(s));
+            GLogInfo(U8_TEXT("Create ")+U8String((u8char *)(addr->GetProtocolName()))+U8_TEXT(" Socket OK: ")+U8String::numberOf(s));
 
             return s;
         }
@@ -92,7 +92,7 @@ namespace hgl
             ThisAddress=nullptr;
             ThisSocket=-1;
 
-//            LOG_INFO(u8"Socket Count ++: "+U8String(++socket_count));
+//            LogInfo(u8"Socket Count ++: "+U8String(++socket_count));
         }
 
         Socket::Socket(int sock,const IPAddress *addr)
@@ -109,7 +109,7 @@ namespace hgl
         {
             CloseSocket();
 
-//            LOG_INFO(u8"Socket Count --: "+U8String(--socket_count));
+//            LogInfo(u8"Socket Count --: "+U8String(--socket_count));
         }
 
         bool Socket::InitSocket(const IPAddress *addr)
@@ -423,7 +423,7 @@ namespace hgl
             #ifdef _WIN32
                 closesocket(ThisSocket);
 
-                LOG_INFO(OS_TEXT("CloseSocket: ") + OSString::numberOf(ThisSocket));
+                GLogInfo(OS_TEXT("CloseSocket: ") + OSString::numberOf(ThisSocket));
             #else
                 int result;
 
@@ -433,13 +433,13 @@ namespace hgl
 
                     result=close(ThisSocket);
 
-                    LOG_INFO(OS_TEXT("CloseSocket: ")+OSString(ThisSocket)+OS_TEXT(",result:")+OSString::numberOf(result)+OS_TEXT(",errno: ")+OSString::numberOf(errno));
+                    LogInfo(OS_TEXT("CloseSocket: ")+OSString(ThisSocket)+OS_TEXT(",result:")+OSString::numberOf(result)+OS_TEXT(",errno: ")+OSString::numberOf(errno));
 
                     if(errno==EBADF)break;
                     if(errno==EINPROGRESS)continue;
                 }while(result);
 
-                LOG_INFO(OS_TEXT("CloseSocket: ") + OSString(ThisSocket) + OS_TEXT(",result:") + OSString::numberOf(result));
+                LogInfo(OS_TEXT("CloseSocket: ") + OSString(ThisSocket) + OS_TEXT(",result:") + OSString::numberOf(result));
             #endif//_WIN32
         }
 
