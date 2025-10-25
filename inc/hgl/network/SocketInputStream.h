@@ -2,7 +2,7 @@
 #define HGL_NETWORK_SOCKET_INPUT_STREAM_INCLUDE
 
 #include<hgl/io/InputStream.h>
-#include<hgl/log/ObjectLogger.h>
+#include<hgl/log/log.h>
 namespace hgl
 {
     template<typename T> class DataArray;

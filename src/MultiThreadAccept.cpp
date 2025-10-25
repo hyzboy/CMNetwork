@@ -1,6 +1,6 @@
 ﻿#include<hgl/network/MultiThreadAccept.h>
 #include<hgl/network/AcceptServer.h>
-#include<hgl/Time.h>
+#include<hgl/time/Time.h>
 
 namespace hgl
 {
@@ -12,11 +12,11 @@ namespace hgl
             {
                 int count=ip_stack.GetCount();
 
-                ip_stack.PreAlloc(count+1024);
+                ip_stack.Reserve(count+1024);
 
                 server->CreateIPAddress(ip_stack.GetData()+count,1024);
 
-                ip_stack.SetCount(count+1024);
+                ip_stack.Resize(count+1024);
             }
         }//namespace
 

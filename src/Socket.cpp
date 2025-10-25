@@ -1,5 +1,5 @@
 ﻿#include<hgl/network/Socket.h>
-#include<hgl/log/ObjectLogger.h>
+#include<hgl/log/log.h>
 #include<time.h>
 #include<iostream>
 

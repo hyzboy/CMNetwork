@@ -1,5 +1,5 @@
 ﻿#include<hgl/network/ServerSocket.h>
-#include<hgl/log/LogInfo.h>
+#include<hgl/log/log.h>
 
 namespace hgl
 {
@@ -50,7 +50,7 @@ namespace hgl
 
             if(ThisSocket<0)
             {
-                LogHint(OS_TEXT("Create TCP Server Socket Failed!"));
+                LogNotice(OS_TEXT("Create TCP Server Socket Failed!"));
                 return(false);
             }
 

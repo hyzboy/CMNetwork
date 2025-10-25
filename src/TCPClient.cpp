@@ -1,5 +1,5 @@
 ﻿#include<hgl/network/TCPClient.h>
-#include<hgl/log/LogInfo.h>
+#include<hgl/log/log.h>
 #include<hgl/network/SocketInputStream.h>
 #include<hgl/network/SocketOutputStream.h>
 
@@ -57,7 +57,7 @@ namespace hgl
 
         TCPClient::TCPClient(int sock,const IPAddress *addr):TCPSocket(sock,addr)
         {
-            Log.SetLoggerInstanceName(U8String::numberOf(sock));
+            Log.SetLoggerInstanceName(OSString::numberOf(sock));
 
             InitPrivate(sock);
         }
@@ -83,12 +83,12 @@ namespace hgl
                 SAFE_CLEAR(ipstr);
                 ipstr=ThisAddress->CreateString();
 
-                LogHint(U8_TEXT("Don't Connect to TCPServer ")+U8String((u8char *)ipstr));
+                LogNotice(U8_TEXT("Don't Connect to TCPServer ")+U8String((u8char *)ipstr));
                 this->CloseSocket();
                 return(false);
             }
 
-            Log.SetLoggerInstanceName(U8String::numberOf(ThisSocket));
+            Log.SetLoggerInstanceName(OSString::numberOf(ThisSocket));
 
             LogInfo(U16_TEXT("connected to ")+ToU16String((u8char *)ipstr)+U16_TEXT(" ok,socket:")+U16String::numberOf(ThisSocket));
 

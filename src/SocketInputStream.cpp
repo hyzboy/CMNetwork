@@ -2,7 +2,7 @@
 #include<hgl/io/DataInputStream.h>
 #include<hgl/network/TCPSocket.h>
 #include<hgl/type/DataArray.h>
-#include<hgl/log/ObjectLogger.h>
+#include<hgl/log/log.h>
 
 namespace hgl
 {
@@ -21,7 +21,7 @@ namespace hgl
     {
         SocketInputStream::SocketInputStream(int s)
         {
-            Log.SetLoggerInstanceName(U8String::numberOf(s));
+            Log.SetLoggerInstanceName(OSString::numberOf(s));
 
             LogInfo(OS_TEXT("SocketInputStream::SocketInputStream(")+OSString::numberOf(s)+OS_TEXT(")"));
 
@@ -234,7 +234,7 @@ namespace hgl
         {
             if(n<=0)return(n);
 
-            mb->SetCount(n);
+            mb->Resize(n);
 
             return ReadFully(mb->data(),n);
         }

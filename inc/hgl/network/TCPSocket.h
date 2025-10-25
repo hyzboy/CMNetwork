@@ -2,7 +2,7 @@
 #define HGL_TCP_SOCKET_INCLUDE
 
 #include<hgl/network/Socket.h>
-#include<hgl/log/ObjectLogger.h>
+#include<hgl/log/log.h>
 namespace hgl
 {
     namespace network

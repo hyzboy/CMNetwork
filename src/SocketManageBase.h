@@ -2,7 +2,7 @@
 #define HGL_NETWORK_SOCKET_MANAGE_BASE_INCLUDE
 
 #include<hgl/network/SocketEvent.h>
-#include<hgl/log/ObjectLogger.h>
+#include<hgl/log/log.h>
 namespace hgl
 {
     namespace network

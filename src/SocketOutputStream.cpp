@@ -1,7 +1,7 @@
 ﻿#include<hgl/network/SocketOutputStream.h>
 #include<hgl/io/DataOutputStream.h>
 #include<hgl/network/TCPSocket.h>
-#include<hgl/log/LogInfo.h>
+#include<hgl/log/log.h>
 namespace hgl
 {
     namespace network

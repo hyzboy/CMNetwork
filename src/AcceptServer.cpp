@@ -1,6 +1,6 @@
 ﻿#include<hgl/network/AcceptServer.h>
-#include<hgl/log/LogInfo.h>
-#include<hgl/Time.h>
+#include<hgl/log/log.h>
+#include<hgl/time/Time.h>
 
 namespace hgl
 {
@@ -49,7 +49,7 @@ namespace hgl
                  )
                     return(0);
 
-                LogHint(OS_TEXT("AcceptServer Accept error,errno=")+OSString::numberOf(err));
+                LogNotice(OS_TEXT("AcceptServer Accept error,errno=")+OSString::numberOf(err));
 
                 if(err==nseTooManyLink)    //太多的人accept
                 {

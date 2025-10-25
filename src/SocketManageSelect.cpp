@@ -1,8 +1,8 @@
 ﻿#include"SocketManageBase.h"
 #include<hgl/network/Socket.h>
-#include<hgl/Time.h>
+#include<hgl/time/Time.h>
 #include<hgl/type/SortedSet.h>
-#include<hgl/log/LogInfo.h>
+#include<hgl/log/log.h>
 
 namespace hgl
 {
@@ -92,7 +92,7 @@ namespace hgl
 
             int ConvertList(SocketEventList &sel,const fd_set &fs)
             {
-                sel.SetCount(fs.fd_count);
+                sel.Resize(fs.fd_count);
 
                 SocketEvent *p=sel.GetData();
 

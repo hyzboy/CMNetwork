@@ -1,6 +1,6 @@
 ﻿#include<hgl/network/HTTPInputStream.h>
 #include<hgl/network/TCPClient.h>
-#include<hgl/log/LogInfo.h>
+#include<hgl/log/log.h>
 #include<hgl/type/Smart.h>
 
 namespace hgl

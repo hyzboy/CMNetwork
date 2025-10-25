@@ -1,5 +1,5 @@
 ﻿#include<hgl/network/SocketManage.h>
-#include<hgl/log/LogInfo.h>
+#include<hgl/log/log.h>
 #include"SocketManageBase.h"
 
 namespace hgl

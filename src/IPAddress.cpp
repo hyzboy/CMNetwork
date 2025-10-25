@@ -1,5 +1,5 @@
 ﻿#include<hgl/network/IP.h>
-#include<hgl/log/ObjectLogger.h>
+#include<hgl/log/log.h>
 
 namespace hgl
 {

@@ -53,7 +53,7 @@ namespace hgl
 
                 PACKET_SIZE_TYPE pack_size=*(PACKET_SIZE_TYPE *)(recv_buffer.data());
 
-                recv_buffer.SetCount(PACKET_SIZE_TYPE_BYTES+pack_size);
+                recv_buffer.Resize(PACKET_SIZE_TYPE_BYTES+pack_size);
 
                 int result=sis->Read(recv_buffer.data()+recv_length,pack_size-(recv_length-PACKET_SIZE_TYPE_BYTES));
 

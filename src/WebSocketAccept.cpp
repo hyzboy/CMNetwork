@@ -2,7 +2,7 @@
 #include<hgl/network/WebSocket.h>
 #include<hgl/network/SocketInputStream.h>
 #include<hgl/network/SocketOutputStream.h>
-#include<hgl/log/LogInfo.h>
+#include<hgl/log/log.h>
 
 namespace hgl
 {
@@ -178,7 +178,7 @@ namespace hgl
                 if(msg_masked)
                     msg_full_length+=4;
 
-                recv_buffer.SetCount(msg_full_length);
+                recv_buffer.Resize(msg_full_length);
 
                 int result=sis->Read(recv_buffer.data()+recv_length,msg_full_length-(recv_length-msg_header_size));
 
@@ -231,7 +231,7 @@ namespace hgl
                     if(msg_length>0)
                     {
                     #ifdef _DEBUG
-                        data_out_str.SetCount(msg_length*3);
+                        data_out_str.Resize(msg_length*3);
 
                         DataToLowerHexStr(data_out_str.data(),(uint8 *)pack,msg_length,u8char(','));
 
@@ -334,7 +334,7 @@ namespace hgl
         bool WebSocketAccept::SendBinary(void *data,uint32 size,bool fin)
         {
         #ifdef _DEBUG
-            data_out_str.SetCount(size*3);
+            data_out_str.Resize(size*3);
 
             DataToLowerHexStr(data_out_str.data(),(uint8 *)data,size,u8char(','));
 

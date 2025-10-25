@@ -4,7 +4,7 @@
 #include<hgl/network/TCPSocket.h>
 #include<hgl/io/InputStream.h>
 #include<hgl/io/OutputStream.h>
-#include<hgl/log/ObjectLogger.h>
+#include<hgl/log/log.h>
 namespace hgl
 {
     namespace network

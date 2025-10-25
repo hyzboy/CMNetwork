@@ -2,7 +2,7 @@
 #define HGL_SOCKET_INCLUDE
 
 #include<hgl/network/IP.h>
-#include<hgl/log/ObjectLogger.h>
+#include<hgl/log/log.h>
 
 //#define HGL_RECV_BYTE_COUNT           ///<接收字节数统计(调试用)
 //#define HGL_SEND_BYTE_COUNT           ///<发送字节数统计(调试用)
