@@ -8,7 +8,7 @@ namespace hgl
     {
         namespace
         {
-            void PreAlloc(IPAddressStack &ip_stack,ServerSocket *server)
+            void Reserve(IPAddressStack &ip_stack,ServerSocket *server)
             {
                 int count=ip_stack.GetCount();
 
@@ -28,7 +28,7 @@ namespace hgl
             if(!server)
                 return;
 
-            PreAlloc(ip_stack,server);
+            Reserve(ip_stack,server);
         }
 
         bool AcceptThread::Execute()
@@ -39,7 +39,7 @@ namespace hgl
             int client_sock;
 
             if(ip_stack.GetCount()<=0)
-                PreAlloc(ip_stack,server);
+                Reserve(ip_stack,server);
 
             ip_stack.Pop(client_ip);
 
