@@ -1,5 +1,4 @@
-﻿#ifndef HGL_WEBAPI_BROWSER_AGENT_STRING_INCLUDE
-#define HGL_WEBAPI_BROWSER_AGENT_STRING_INCLUDE
+﻿#pragma once
 
 #include<hgl/type/String.h>
 namespace hgl
@@ -49,4 +48,3 @@ namespace hgl
         U8String FirefoxUserAgent(FirefoxUserAgentConfig &cfg);
     }//namespace webapi
 }//namespace hgl
-#endif//HGL_WEBAPI_BROWSER_AGENT_STRING_INCLUDE

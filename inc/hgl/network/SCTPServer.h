@@ -1,5 +1,4 @@
-#ifndef HGL_NETWORK_SCTP_SERVER_INCLUDE
-#define HGL_NETWORK_SCTP_SERVER_INCLUDE
+#pragma once
 
 #include<hgl/network/AcceptServer.h>
 #include<hgl/network/SCTPSocket.h>
@@ -45,4 +44,3 @@ namespace hgl
         };//class SCTPO2MServer
     }//namespace network
 }//namespace hgl
-#endif//HGL_NETWORK_SCTP_SERVER_INCLUDE

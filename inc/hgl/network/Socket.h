@@ -1,5 +1,4 @@
-﻿#ifndef HGL_SOCKET_INCLUDE
-#define HGL_SOCKET_INCLUDE
+﻿#pragma once
 
 #include<hgl/network/IP.h>
 #include<hgl/log/log.h>
@@ -155,4 +154,3 @@ namespace hgl
 
     using namespace network;
 }//namespace hgl
-#endif//HGL_SOCKET_INCLUDE

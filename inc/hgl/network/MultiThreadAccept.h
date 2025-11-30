@@ -1,5 +1,4 @@
-﻿#ifndef HGL_NETWORK_MULTI_THREAD_ACCEPT_INCLUDE
-#define HGL_NETWORK_MULTI_THREAD_ACCEPT_INCLUDE
+﻿#pragma once
 
 #include<hgl/thread/Thread.h>
 #include<hgl/type/Stack.h>
@@ -85,4 +84,3 @@ namespace hgl
         };//template<typename ACCEPT_THREAD> class MultiThreadAccept
     }//namespace network
 }//namespace hgl
-#endif//HGL_NETWORK_MULTI_THREAD_ACCEPT_INCLUDE

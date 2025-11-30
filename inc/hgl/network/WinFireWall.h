@@ -1,5 +1,4 @@
-#ifndef HGL_NETWORK_WINDOW_FIREWALL_INCLUDE
-#define HGL_NETWORK_WINDOW_FIREWALL_INCLUDE
+#pragma once
 
 struct INetFwProfile;
 
@@ -89,4 +88,3 @@ namespace hgl
 
     using namespace network;
 }//namespace hgl
-#endif//HGL_NETWORK_WINDOW_FIREWALL_INCLUDE

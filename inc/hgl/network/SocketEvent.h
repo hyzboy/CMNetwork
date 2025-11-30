@@ -1,5 +1,4 @@
-﻿#ifndef HGL_NETWORK_SOCKET_EVENT_INCLUDE
-#define HGL_NETWORK_SOCKET_EVENT_INCLUDE
+﻿#pragma once
 
 #include<hgl/platform/Platform.h>
 #include<hgl/type/ArrayList.h>
@@ -21,4 +20,3 @@ namespace hgl
         using SocketEventList=ArrayList<SocketEvent>;
     }//namespace network
 }//namespace hgl
-#endif//HGL_NETWORK_SOCKET_EVENT_INCLUDE

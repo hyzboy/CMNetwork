@@ -1,5 +1,4 @@
-#ifndef HGL_NETWORK_JAVA_DIRECT_SOCKET_IO_USER_THREAD_INCLUDE
-#define HGL_NETWORK_JAVA_DIRECT_SOCKET_IO_USER_THREAD_INCLUDE
+#pragma once
 
 #include<hgl/network/DirectSocketIOUserThread.h>
 #include<hgl/io/JavaInputStream.h>
@@ -14,4 +13,3 @@ namespace hgl
         typedef DirectSocketIOUserThread<JavaInputStream,JavaOutputStream> JavaDirectSocketIOUserThread;
     }//namespace network
 }//namespace hgl
-#endif//HGL_NETWORK_JAVA_DIRECT_SOCKET_IO_USER_THREAD_INCLUDE

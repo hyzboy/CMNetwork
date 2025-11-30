@@ -1,5 +1,4 @@
-#ifndef HGL_NETWORK_SCTP_SOCKET_INCLUDE
-#define HGL_NETWORK_SCTP_SOCKET_INCLUDE
+#pragma once
 
 #include<hgl/network/Socket.h>
 #include<hgl/MemBlock.h>
@@ -73,4 +72,3 @@ namespace hgl
         };//
     }//namespace network
 }//namespace hgl
-#endif//HGL_NETWORK_SCTP_SOCKET_INCLUDE

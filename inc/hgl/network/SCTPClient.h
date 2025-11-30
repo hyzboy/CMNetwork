@@ -1,5 +1,4 @@
-﻿#ifndef HGL_NETWORK_SCTP_CLIENT_INCLUDE
-#define HGL_NETWORK_SCTP_CLIENT_INCLUDE
+﻿#pragma once
 
 #include<hgl/network/SCTPSocket.h>
 namespace hgl
@@ -25,4 +24,3 @@ namespace hgl
 
     using namespace network;
 }//namespace hgl
-#endif//HGL_NETWORK_SCTP_CLIENT_INCLUDE

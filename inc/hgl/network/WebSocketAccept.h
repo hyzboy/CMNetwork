@@ -1,5 +1,4 @@
-﻿#ifndef HGL_NETWORK_WEBSOCKET_ACCEPT_INCLUDE
-#define HGL_NETWORK_WEBSOCKET_ACCEPT_INCLUDE
+﻿#pragma once
 
 #include<hgl/network/TCPAccept.h>
 #include<hgl/type/String.h>
@@ -81,4 +80,3 @@ namespace hgl
         };//class WebSocketAccept:public TCPAccept
     }//namespace network
 }//namespace hgl
-#endif//HGL_NETWORK_WEBSOCKET_ACCEPT_INCLUDE

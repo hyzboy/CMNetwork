@@ -1,5 +1,4 @@
-﻿#ifndef HGL_NETWORK_TCP_ACCEPT_INCLUDE
-#define HGL_NETWORK_TCP_ACCEPT_INCLUDE
+﻿#pragma once
 
 #include<hgl/network/TCPSocket.h>
 #include<hgl/type/DataArray.h>
@@ -82,4 +81,3 @@ namespace hgl
         };//class TCPAcceptPacket:public TCPAccept
     }//namespace network
 }//namespace hgl
-#endif//HGL_NETWORK_TCP_ACCEPT_INCLUDE

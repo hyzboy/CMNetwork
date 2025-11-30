@@ -1,5 +1,4 @@
-﻿#ifndef HGL_TCP_SERVER_INCLUDE
-#define HGL_TCP_SERVER_INCLUDE
+﻿#pragma once
 
 #include<hgl/network/AcceptServer.h>
 namespace hgl
@@ -23,4 +22,3 @@ namespace hgl
 
     using namespace network;
 }//namespace hgl
-#endif//HGL_TCP_SERVER_INCLUDE

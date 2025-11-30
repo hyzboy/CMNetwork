@@ -1,5 +1,4 @@
-﻿#ifndef HGL_NETWORK_SOCKET_INPUT_STREAM_INCLUDE
-#define HGL_NETWORK_SOCKET_INPUT_STREAM_INCLUDE
+﻿#pragma once
 
 #include<hgl/io/InputStream.h>
 #include<hgl/log/log.h>
@@ -56,4 +55,3 @@ namespace hgl
         };//class SocketInputStream
     }//namespace network
 }//namespace hgl
-#endif//HGL_NETWORK_SOCKET_INPUT_STREAM_INCLUDE

@@ -1,5 +1,4 @@
-﻿#ifndef HGL_NETWORK_SOCKET_MANAGE_BASE_INCLUDE
-#define HGL_NETWORK_SOCKET_MANAGE_BASE_INCLUDE
+﻿#pragma once
 
 #include<hgl/network/SocketEvent.h>
 #include<hgl/log/log.h>
@@ -35,4 +34,3 @@ namespace hgl
         SocketManageBase *CreateSocketManageBase(int max_user);                                     ///<创建一个Socket基础管理器
     }//namespace network
 }//namespace hgl
-#endif//HGL_NETWORK_SERVER_ACCEPT_MANAGE_BASE_INCLUDE

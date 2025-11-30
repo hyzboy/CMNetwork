@@ -1,5 +1,4 @@
-﻿#ifndef HGL_NETWORK_HTTP_INPUT_STREAM_INCLUDE
-#define HGL_NETWORK_HTTP_INPUT_STREAM_INCLUDE
+﻿#pragma once
 
 #include<hgl/io/InputStream.h>
 #include<hgl/util/plist/PAttrib.h>
@@ -84,4 +83,3 @@ namespace hgl
 
     using namespace network;
 }//namespace hgl
-#endif//HGL_NETWORK_HTTP_INPUT_STREAM_INCLUDE

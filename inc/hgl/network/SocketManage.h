@@ -1,5 +1,4 @@
-﻿#ifndef HGL_NETWORK_SOCKET_MANAGE_INCLUDE
-#define HGL_NETWORK_SOCKET_MANAGE_INCLUDE
+﻿#pragma once
 
 #include<hgl/type/Map.h>
 #include<hgl/type/SortedSet.h>
@@ -70,4 +69,3 @@ namespace hgl
         };//class SocketManage
     }//namespace network
 }//namespace hgl
-#endif//HGL_NETWORK_SOCKET_MANAGE_INCLUDE

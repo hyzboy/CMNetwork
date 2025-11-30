@@ -1,5 +1,4 @@
-﻿#ifndef HGL_NETWORK_ThisSocket_INCLUDE
-#define HGL_NETWORK_ThisSocket_INCLUDE
+﻿#pragma once
 
 #include<hgl/network/Socket.h>
 namespace hgl
@@ -50,4 +49,3 @@ namespace hgl
         };//class ServerSocket
     }//namespace network
 }//namespace hgl
-#endif//HGL_NETWORK_ThisSocket_INCLUDE

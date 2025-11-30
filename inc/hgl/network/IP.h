@@ -1,5 +1,4 @@
-﻿#ifndef HGL_NETWORK_IP_INCLUDE
-#define HGL_NETWORK_IP_INCLUDE
+﻿#pragma once
 
 #include<hgl/platform/Platform.h>
 
@@ -437,4 +436,3 @@ namespace hgl
         inline IPv4Address *CreateIPv4UDPLiteBoradcast  (ushort port){return(new IPv4Address(htonl(INADDR_BROADCAST),port,SOCK_DGRAM,   IPPROTO_UDPLITE));}
     }//namespace network
 }//namespace hgl
-#endif//HGL_NETWORK_IP_TOOL_INCLUDE

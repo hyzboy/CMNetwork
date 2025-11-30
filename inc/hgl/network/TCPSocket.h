@@ -1,5 +1,4 @@
-﻿#ifndef HGL_TCP_SOCKET_INCLUDE
-#define HGL_TCP_SOCKET_INCLUDE
+﻿#pragma once
 
 #include<hgl/network/Socket.h>
 #include<hgl/log/log.h>
@@ -43,4 +42,3 @@ namespace hgl
 
     using namespace network;
 }//namespace hgl
-#endif//HGL_TCP_SOCKET_INCLUDE

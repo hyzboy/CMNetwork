@@ -1,5 +1,4 @@
-﻿#ifndef HGL_TCP_CLIENT_INCLUDE
-#define HGL_TCP_CLIENT_INCLUDE
+﻿#pragma once
 
 #include<hgl/network/TCPSocket.h>
 #include<hgl/io/InputStream.h>
@@ -52,4 +51,3 @@ namespace hgl
 
     using namespace network;
 }//namespace hgl
-#endif//HGL_TCP_CLIENT_INCLUDE

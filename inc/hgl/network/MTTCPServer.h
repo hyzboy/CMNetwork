@@ -1,5 +1,4 @@
-﻿#ifndef HGL_NETWORK_MULTI_THREAD_TCP_SERVER_INCLUDE
-#define HGL_NETWORK_MULTI_THREAD_TCP_SERVER_INCLUDE
+﻿#pragma once
 
 #include<hgl/network/TCPAccept.h>
 #include<hgl/network/TCPServer.h>
@@ -160,4 +159,3 @@ namespace hgl
         using MTTCPServerStd=MTTCPServer<USER_ACCEPT,SocketManageThread<USER_ACCEPT>>;
     }//namespace network
 }//namespace hgl
-#endif//HGL_NETWORK_MULTI_THREAD_TCP_SERVER_INCLUDE

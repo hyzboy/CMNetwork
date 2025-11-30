@@ -1,5 +1,4 @@
-﻿#ifndef HGL_NETWORK_ACCEPT_SERVER_INCLUDE
-#define HGL_NETWORK_ACCEPT_SERVER_INCLUDE
+﻿#pragma once
 
 #include<hgl/network/ServerSocket.h>
 namespace hgl
@@ -51,4 +50,3 @@ namespace hgl
         };//class AcceptServer
     }//namespace network
 }//namespace hgl
-#endif//HGL_NETWORK_ACCEPT_SERVER_INCLUDE

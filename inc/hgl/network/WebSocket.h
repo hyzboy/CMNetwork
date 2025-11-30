@@ -1,5 +1,4 @@
-#ifndef HGL_NETWORK_WEBSOCKET_INCLUDE
-#define HGL_NETWORK_WEBSOCKET_INCLUDE
+#pragma once
 
 #include<hgl/type/String.h>
 namespace hgl
@@ -10,4 +9,3 @@ namespace hgl
         void MakeWebSocketAccept(U8String &result,const U8String &sec_websocket_key,const U8String &sec_websocket_protocol);
     }//namespace network
 }//namespace hgl
-#endif//HGL_NETWORK_WEBSOCKET_INCLUDE

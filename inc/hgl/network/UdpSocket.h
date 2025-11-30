@@ -1,5 +1,4 @@
-﻿#ifndef HGL_UDPSOCKET_INCLUDE
-#define HGL_UDPSOCKET_INCLUDE
+﻿#pragma once
 
 #include<hgl/type/DataType.h>
 #include<hgl/network/Socket.h>
@@ -101,4 +100,3 @@ namespace hgl
 
     using namespace network;
 }//namespace hgl
-#endif//HGL_UDPSOCKET_INCLUDE

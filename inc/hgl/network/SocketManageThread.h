@@ -1,5 +1,4 @@
-﻿#ifndef HGL_NETWORK_SOCKET_MANAGE_THREAD_INCLUDE
-#define HGL_NETWORK_SOCKET_MANAGE_THREAD_INCLUDE
+﻿#pragma once
 
 #include<hgl/network/SocketManage.h>
 #include<hgl/thread/Thread.h>
@@ -150,4 +149,3 @@ namespace hgl
         };//template<typename USER_ACCEPT> class SocketManageThread:public Thread
     }//namespace network
 }//namespace hgl
-#endif//HGL_NETWORK_SOCKET_MANAGE_THREAD_INCLUDE

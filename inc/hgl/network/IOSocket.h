@@ -1,5 +1,4 @@
-﻿#ifndef HGL_NETWORK_IOSOCKET_INCLUDE
-#define HGL_NETWORK_IOSOCKET_INCLUDE
+﻿#pragma once
 
 #include<hgl/network/Socket.h>
 
@@ -110,5 +109,4 @@ namespace hgl
         };//class IOSocket
     }//namespace network
 }//namespace hgl
-#endif//HGL_NETWORK_IOSOCKET_INCLUDE
 

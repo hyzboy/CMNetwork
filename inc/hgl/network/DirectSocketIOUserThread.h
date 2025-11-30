@@ -1,5 +1,4 @@
-#ifndef HGL_NETWORK_DIRECT_SOCKET_IO_USER_THREAD_INCLUDE
-#define HGL_NETWORK_DIRECT_SOCKET_IO_USER_THREAD_INCLUDE
+#pragma once
 
 #include<hgl/network/TCPSocket.h>
 
@@ -105,4 +104,3 @@ namespace hgl
 #endif//HGL_NETWORK_SCTP_SUPPORT
     }//namespace network
 }//namespace hgl
-#endif//HGL_NETWORK_DIRECT_SOCKET_IO_USER_THREAD_INCLUDE

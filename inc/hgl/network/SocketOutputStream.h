@@ -1,5 +1,4 @@
-﻿#ifndef HGL_NETWORK_SOCKET_OUTPUT_STREAM_INCLUDE
-#define HGL_NETWORK_SOCKET_OUTPUT_STREAM_INCLUDE
+﻿#pragma once
 
 #include<hgl/io/OutputStream.h>
 #include<hgl/log/log.h>
@@ -55,4 +54,3 @@ namespace hgl
         };//class SocketOutputStream
     }//namespace network
 }//namespace hgl
-#endif//HGL_NETWORK_SOCKET_OUTPUT_STREAM_INCLUDE
