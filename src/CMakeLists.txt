@@ -38,9 +38,6 @@ SET(NETWORK_SCTP_SOURCE
 
 SET(NETWORK_HTTP_SOURCE
     HTTPInputStream.cpp
-#     HTTPOutputStream.cpp
-#    HTTPTools.cpp
-#    WebApi_Currency.cpp
 )
 
 SET(NETWORK_WEBSOCKET_SOURCE
