@@ -26,7 +26,7 @@ namespace hgl
             LogInfo(OS_TEXT("SocketInputStream::SocketInputStream(")+OSString::numberOf(s)+OS_TEXT(")"));
 
             SetSocket(s);
-            mb=new DataArray<char>();
+            mb=nullptr;
         }
 
         SocketInputStream::~SocketInputStream()
@@ -233,6 +233,10 @@ namespace hgl
         int64 SocketInputStream::Skip(int64 n)
         {
             if(n<=0)return(n);
+
+            // Lazy allocate buffer if not already allocated
+            if(!mb)
+                mb=new DataArray<char>();
 
             mb->Resize(n);
 

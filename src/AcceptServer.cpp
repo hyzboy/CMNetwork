@@ -62,8 +62,13 @@ namespace hgl
 
             const int IP_STR_MAX_SIZE=server_address->GetIPStringMaxSize();
 
-            if(!ipstr)
+            // Re-allocate if size changed or first time
+            if(!ipstr || ipstr_max_size < IP_STR_MAX_SIZE)
+            {
+                SAFE_CLEAR_ARRAY(ipstr);
                 ipstr=new char[IP_STR_MAX_SIZE+1];
+                ipstr_max_size=IP_STR_MAX_SIZE;
+            }
 
             addr->ToString(ipstr,IP_STR_MAX_SIZE);
 

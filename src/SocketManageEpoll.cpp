@@ -4,6 +4,7 @@
 
 #include<unistd.h>
 #include<sys/epoll.h>
+#include<cstring>
 
 namespace hgl
 {
@@ -71,7 +72,11 @@ namespace hgl
 
             bool Join(int sock) override
             {
-                epoll_add(sock);
+                if(!epoll_add(sock))
+                {
+                    LOG_ERROR(OS_TEXT("SocketManageEpoll::Join() epoll_add failed for socket:")+OSString(sock));
+                    return(false);
+                }
 
                 SetSocketBlock(sock,false);
 
@@ -108,8 +113,12 @@ namespace hgl
                     return(false);
                 }
 
+                if(!epoll_del(sock))
+                {
+                    LOG_ERROR(OS_TEXT("SocketManageEpoll::Unjoin() epoll_del failed for socket:")+OSString(sock));
+                }
+
                 --cur_count;
-                epoll_del(sock);
 
                 LOG_INFO(OS_TEXT("SocketManageEpoll::Unjoin() Socket:")+OSString(sock));
 
@@ -171,11 +180,12 @@ namespace hgl
 
                 if(event_count<0)
                 {
-                    LOG_INFO(OS_TEXT("epoll return -1,errno: ")+OSString(errno));
+                    const int err=errno;
+                    LOG_ERROR(OS_TEXT("epoll_wait failed, errno: ")+OSString(err)+OS_TEXT(", ")+OSString(strerror(err)));
 
-                    if(errno==EBADF
-                     ||errno==EFAULT
-                     ||errno==EINVAL)
+                    if(err==EBADF
+                     ||err==EFAULT
+                     ||err==EINVAL)
                         return(-1);
 
                     return(0);

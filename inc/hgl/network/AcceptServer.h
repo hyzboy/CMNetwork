@@ -16,6 +16,7 @@ namespace hgl
         private:
 
             char *ipstr;
+            int ipstr_max_size;
 
             fd_set accept_set;
             struct timeval accept_timeout,ato;
@@ -34,6 +35,7 @@ namespace hgl
             {
                 overload_wait=HGL_SERVER_OVERLOAD_RESUME_TIME;
                 ipstr = nullptr;
+                ipstr_max_size = 0;
 
                 FD_ZERO(&accept_set);
                 hgl_zero(accept_timeout);

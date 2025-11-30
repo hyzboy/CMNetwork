@@ -19,7 +19,7 @@ namespace hgl
                                                         "Connection: Keep-Alive\r\n\r\n";
 
             constexpr uint HTTP_REQUEST_HEADER_END_SIZE=sizeof(HTTP_REQUEST_HEADER_END)-1;
-            
+
             constexpr char HTTP_POST_HEADER_END[]=      "\r\n"
                                                         "Accept: */*\r\n"
                                                         "User-Agent: Mozilla/5.0\r\n"
@@ -44,6 +44,11 @@ namespace hgl
             http_header_size=0;
 
             response_code=0;
+
+            is_chunked=false;
+            chunk_size=0;
+            chunk_pos=0;
+            chunk_header_parsed=false;
         }
 
         HTTPInputStream::~HTTPInputStream()
@@ -161,7 +166,15 @@ namespace hgl
             len+=strcpy(http_header+len,HTTP_HEADER_BUFFER_SIZE-len,HTTP_POST_HEADER_END,       HTTP_POST_HEADER_END_SIZE);
 
             //追加Content-Length数值
-            len+=snprintf(http_header+len,HTTP_HEADER_BUFFER_SIZE-len,"%d\r\n\r\n",post_data_size);
+            int content_len=snprintf(http_header+len,HTTP_HEADER_BUFFER_SIZE-len,"%d\r\n\r\n",post_data_size);
+            if(content_len<=0 || len+content_len>=HTTP_HEADER_BUFFER_SIZE)
+            {
+                LogError("HTTP Post Header buffer overflow detected");
+                delete tcp;
+                tcp=nullptr;
+                RETURN_FALSE;
+            }
+            len+=content_len;
 
             OutputStream *tcp_os=tcp->GetOutputStream();
 
@@ -200,6 +213,11 @@ namespace hgl
 
             *http_header=0;
             http_header_size=0;
+
+            is_chunked=false;
+            chunk_size=0;
+            chunk_pos=0;
+            chunk_header_parsed=false;
         }
 
         constexpr char HTTP_HEADER_SPLITE[]="\r\n";
@@ -255,6 +273,12 @@ namespace hgl
         constexpr char HTTP_CONTENT_LENGTH[]="Content-Length: ";
         constexpr uint HTTP_CONTENT_LENGTH_SIZE=sizeof(HTTP_CONTENT_LENGTH)-1;
 
+        constexpr char HTTP_TRANSFER_ENCODING[]="Transfer-Encoding: ";
+        constexpr uint HTTP_TRANSFER_ENCODING_SIZE=sizeof(HTTP_TRANSFER_ENCODING)-1;
+
+        constexpr char HTTP_CHUNKED[]="chunked";
+        constexpr uint HTTP_CHUNKED_SIZE=sizeof(HTTP_CHUNKED)-1;
+
         int HTTPInputStream::PraseHttpHeader()
         {
             char *offset;
@@ -273,12 +297,30 @@ namespace hgl
 
             if(response_code==200)
             {
-                offset=strstr(http_header,http_header_size,HTTP_CONTENT_LENGTH,HTTP_CONTENT_LENGTH_SIZE);
-
+                // Check for Transfer-Encoding: chunked
+                offset=strstr(http_header,http_header_size,HTTP_TRANSFER_ENCODING,HTTP_TRANSFER_ENCODING_SIZE);
                 if(offset)
                 {
-                    offset+=HTTP_CONTENT_LENGTH_SIZE;
-                    stou(offset,filelength);
+                    offset+=HTTP_TRANSFER_ENCODING_SIZE;
+                    char *end=strchr(offset,';');
+                    if(!end)end=strchr(offset,'\r');
+
+                    if(end && strncmp(offset,HTTP_CHUNKED,HTTP_CHUNKED_SIZE)==0)
+                    {
+                        is_chunked=true;
+                        filelength=-1;  // Unknown size for chunked
+                        LogInfo(U8_TEXT("HTTPInputStream using chunked encoding"));
+                    }
+                }
+                else
+                {
+                    // Check for Content-Length
+                    offset=strstr(http_header,http_header_size,HTTP_CONTENT_LENGTH,HTTP_CONTENT_LENGTH_SIZE);
+                    if(offset)
+                    {
+                        offset+=HTTP_CONTENT_LENGTH_SIZE;
+                        stou(offset,filelength);
+                    }
                 }
 
                 //有些HTTP下载就是不提供文件长度
@@ -304,6 +346,106 @@ namespace hgl
 
             Close();
             RETURN_ERROR(-2);
+        }
+
+        /**
+        * 读取Chunked编码的数据
+        * Chunk格式: [size in hex]\r\n[data]\r\n...0\r\n\r\n
+        */
+        int HTTPInputStream::ReadChunkedData(void *buf,int64 bufsize)
+        {
+            char *p=(char *)buf;
+            int64 to_read=0;
+            int readsize=0;
+
+            while(to_read<bufsize)
+            {
+                // If current chunk is read completely, read next chunk header
+                if(chunk_size==0 && chunk_header_parsed)
+                {
+                    // End of all chunks
+                    if(to_read>0)return to_read;
+                    return 0;
+                }
+
+                if(!chunk_header_parsed || chunk_pos>=chunk_size)
+                {
+                    // Read and parse chunk header
+                    char chunk_header[32]={0};
+                    char c;
+                    int header_pos=0;
+
+                    // Read until \r\n
+                    while(header_pos<31)
+                    {
+                        readsize=tcp_is->Read(&c,1);
+                        if(readsize<=0)return ReturnError();
+
+                        if(c=='\r')
+                        {
+                            readsize=tcp_is->Read(&c,1);
+                            if(readsize<=0)return ReturnError();
+                            if(c=='\n')break;
+                        }
+                        else
+                        {
+                            chunk_header[header_pos++]=c;
+                        }
+                    }
+
+                    chunk_header[header_pos]=0;
+
+                    // Parse hex size
+                    chunk_size=0;
+                    for(int i=0;i<header_pos;i++)
+                    {
+                        char c=chunk_header[i];
+                        chunk_size=chunk_size*16;
+
+                        if(c>='0'&&c<='9')
+                            chunk_size+=c-'0';
+                        else if(c>='a'&&c<='f')
+                            chunk_size+=c-'a'+10;
+                        else if(c>='A'&&c<='F')
+                            chunk_size+=c-'A'+10;
+                    }
+
+                    if(chunk_size==0)
+                    {
+                        // Last chunk, read trailing \r\n
+                        tcp_is->Read(&c,1);
+                        tcp_is->Read(&c,1);
+                        chunk_header_parsed=true;
+                        return to_read;
+                    }
+
+                    chunk_pos=0;
+                    chunk_header_parsed=true;
+                }
+
+                // Read data from current chunk
+                int64 left_in_chunk=chunk_size-chunk_pos;
+                int64 to_copy=left_in_chunk<(bufsize-to_read)?left_in_chunk:(bufsize-to_read);
+
+                readsize=tcp_is->Read(p,to_copy);
+                if(readsize<=0)return ReturnError();
+
+                p+=readsize;
+                to_read+=readsize;
+                chunk_pos+=readsize;
+
+                // If chunk is completely read, read trailing \r\n
+                if(chunk_pos>=chunk_size)
+                {
+                    char c;
+                    tcp_is->Read(&c,1);  // \r
+                    tcp_is->Read(&c,1);  // \n
+
+                    chunk_header_parsed=false;
+                }
+            }
+
+            return to_read;
         }
 
         /**
@@ -343,6 +485,10 @@ namespace hgl
             }
             else
             {
+                // If chunked encoding, use special handler
+                if(is_chunked)
+                    return ReadChunkedData(buf,bufsize);
+
                 readsize=tcp_is->Read((char *)buf,bufsize);
 
                 if(readsize<=0)

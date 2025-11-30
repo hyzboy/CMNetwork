@@ -30,8 +30,14 @@ namespace hgl
             char *http_header;
             uint http_header_size;
 
+            bool is_chunked;                    ///<是否为chunked编码
+            int64 chunk_size;                   ///<当前chunk大小
+            int64 chunk_pos;                    ///<当前chunk读取位置
+            bool chunk_header_parsed;           ///<是否已解析完chunk头
+
             void ParseHttpResponse();
             int PraseHttpHeader();
+            int ReadChunkedData(void *buf,int64 bufsize);  ///<读取chunked编码数据
 
             int ReturnError();
 

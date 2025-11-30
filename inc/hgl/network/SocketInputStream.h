@@ -19,7 +19,7 @@ namespace hgl
         protected:
 
             int sock;
-            DataArray<char> *mb;
+            DataArray<char> *mb;            ///< Lazily allocated buffer for Skip operation
 
             int64 total;            //累计字节数
 
