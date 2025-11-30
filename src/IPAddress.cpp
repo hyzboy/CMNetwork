@@ -72,7 +72,7 @@ namespace hgl
             const int val = reuse;
 
 #if HGL_OS == HGL_OS_Windows
-            setsockopt(ThisSocket, SOL_SOCKET, SO_REUSEADDR, (const char *)&val, sizeof(BOOL));     //win下的BOOL本质也是int，所以唯一区分只在于val的传入类型
+            setsockopt(ThisSocket, SOL_SOCKET, SO_REUSEADDR, (const char *)&val, sizeof(int));
 #else
             setsockopt(ThisSocket, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(int));
 #endif//HGL_OS == HGL_OS_Windows

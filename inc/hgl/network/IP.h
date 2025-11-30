@@ -176,7 +176,7 @@ namespace hgl
             virtual const uint GetSockAddrInSize()const=0;                                                  ///<取得SockAddrIn变量长度
             virtual const uint GetIPStringMaxSize()const=0;                                                 ///<取得IP字符串最大长度
 
-            virtual const bool IsBoradcast()const=0;                                                        ///<是否为广播
+            virtual const bool IsBroadcast()const=0;                                                        ///<是否为广播
 
             virtual const char *GetProtocolName()const{return protocol_name;}                               ///<取得协议名称
 
@@ -279,21 +279,21 @@ namespace hgl
                 Set(_addr,port);
             }
 
-            IPv4Address(const char *name,ushort port,int _socktype,int _protocol)
+            IPv4Address(const char *name,ushort port,int _socktype,int _protocol):IPAddress(_socktype,_protocol)
             {
                 Set(name,port,_socktype,_protocol);
             }
 
-            IPv4Address(ushort port,int _socktype,int _protocol)
+            IPv4Address(ushort port,int _socktype,int _protocol):IPAddress(_socktype,_protocol)
             {
                 Set(nullptr,port,_socktype,_protocol);
             }
 
-            IPv4Address(const IPv4Address *src)
+            IPv4Address(const IPv4Address &src)
             {
-                hgl_cpy(addr,src->addr);
-                socktype=src->socktype;
-                protocol=src->protocol;
+                hgl_cpy(addr,src.addr);
+                socktype=src.socktype;
+                protocol=src.protocol;
             }
 
             const int GetFamily()const override{return AF_INET;}
@@ -301,7 +301,7 @@ namespace hgl
             const uint GetSockAddrInSize()const override{return sizeof(sockaddr_in);}
             const uint GetIPStringMaxSize()const override{return INET_ADDRSTRLEN+6;}
 
-            const bool IsBoradcast()const override{return(addr.sin_addr.s_addr==htonl(INADDR_BROADCAST));}
+            const bool IsBroadcast()const override{return(addr.sin_addr.s_addr==htonl(INADDR_BROADCAST));}
 
             bool Set(const char *name,ushort port,int _socktype,int _protocol) override;
             void Set(const uint32 _addr,ushort port)
@@ -330,7 +330,7 @@ namespace hgl
             static int GetDomainIPList(ArrayList<in_addr> &addr_list,const char *domain,int _socktype,int _protocol);        ///<取得当指定域名的IPv4地址列表
             static int GetLocalIPList(ArrayList<in_addr> &addr_list,int _socktype,int _protocol);                            ///<取得本机的IPv4地址列表
 
-            IPAddress *CreateCopy()const override{return(new IPv4Address(this));}
+            IPAddress *CreateCopy()const override{return(new IPv4Address(*this));}
             IPAddress *Create()const override{return(new IPv4Address());}
 
             bool Comp(const IPAddress *ipa)const override;
@@ -355,21 +355,19 @@ namespace hgl
                 addr.sin6_port=htons(port);
             }
 
-            IPv6Address(const char *name,ushort port,int _socktype,int _protocol)
+            IPv6Address(const char *name,ushort port,int _socktype,int _protocol):IPAddress(_socktype,_protocol)
             {
                 Set(name,port,_socktype,_protocol);
             }
 
-            IPv6Address(ushort port,int _socktype,int _protocol)
+            IPv6Address(ushort port,int _socktype,int _protocol):IPAddress(_socktype,_protocol)
             {
                 Set(nullptr,port,_socktype,_protocol);
             }
 
-            IPv6Address(const IPv6Address *src)
+            IPv6Address(const IPv6Address &src):IPAddress(src.socktype,src.protocol)
             {
-                hgl_cpy(addr,src->addr);
-                socktype=src->socktype;
-                protocol=src->protocol;
+                hgl_cpy(addr,src.addr);
             }
 
             const int GetFamily()const override{return AF_INET6;}
@@ -377,7 +375,7 @@ namespace hgl
             const uint GetSockAddrInSize()const override{return sizeof(sockaddr_in6);}
             const uint GetIPStringMaxSize()const override{return INET6_ADDRSTRLEN+6;}
 
-            const bool IsBoradcast()const override{return(false);}
+            const bool IsBroadcast()const override{return(false);}
 
             bool Set(const char *name,ushort port,int _socktype,int _protocol) override;
             void Set(ushort port) override;
@@ -398,7 +396,7 @@ namespace hgl
             static int GetDomainIPList(ArrayList<in6_addr> &addr_list,const char *domain,int _socktype,int _protocol);       ///<取得指定域名的IPv6地址列表
             static int GetLocalIPList(ArrayList<in6_addr> &addr_list,int _socktype,int _protocol);                           ///<取得本机的IPv6地址列表
 
-            IPAddress *CreateCopy()const override{return(new IPv6Address(this));}
+            IPAddress *CreateCopy()const override{return(new IPv6Address(*this));}
             IPAddress *Create()const override{return(new IPv6Address());}
 
             bool Comp(const IPAddress *ipa)const override;

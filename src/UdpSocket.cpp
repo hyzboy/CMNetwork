@@ -88,7 +88,7 @@ namespace hgl
             tar_addr=addr->CreateCopy();
 
             {
-                const int opt = tar_addr->IsBoradcast()?1:0;
+                const int opt = tar_addr->IsBroadcast()?1:0;
 
                 if(setsockopt(ThisSocket, SOL_SOCKET, SO_BROADCAST, (char *)&opt, sizeof(opt))==-1)
                     RETURN_FALSE;
