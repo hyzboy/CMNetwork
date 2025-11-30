@@ -108,7 +108,7 @@ namespace hgl
     #ifdef _DEBUG
             if(ThisSocket==-1)
             {
-                GLogHint(U16_TEXT("UDPSocket没有调用Create"));
+                GLogWarning(U16_TEXT("UDPSocket没有调用Create"));
                 return(-1);
             }
     #endif//
@@ -127,7 +127,7 @@ namespace hgl
     #ifdef _DEBUG
             if(ThisSocket==-1)
             {
-                GLogHint(U16_TEXT("UDPSocket没有调用Create"));
+                GLogWarning(U16_TEXT("UDPSocket没有调用Create"));
                 return(-1);
             }
     #endif//
@@ -146,7 +146,7 @@ namespace hgl
     #ifdef _DEBUG
             if(ThisSocket==-1)
             {
-                GLogHint(U16_TEXT("UDPSocket没有调用Create"));
+                GLogWarning(U16_TEXT("UDPSocket没有调用Create"));
                 return(-1);
             }
     #endif//
