@@ -278,7 +278,7 @@ namespace hgl
         bool IPv4Address::Bind(int ThisSocket,int reuse)const{return BindAddr<sockaddr,sockaddr_in>(ThisSocket,addr,reuse);}
         bool IPv4Address::GetHostname(AnsiString &name)const{return hgl::network::GetHostname(name,(sockaddr *)&addr);}
 
-        const ushort IPv4Address::GetPort()const{return addr.sin_port;}
+        const ushort IPv4Address::GetPort()const{return ntohs(addr.sin_port);}
 
         void IPv4Address::ToString(char *str,const int max_size,const in_addr *ip_addr)
         {
@@ -292,7 +292,7 @@ namespace hgl
             int size=strlen(str);
             str[size]=':';
 
-            hgl::utos(str+size+1,max_size-1-size,ip_addr->sin_port);
+            hgl::utos(str+size+1,max_size-1-size,ntohs(ip_addr->sin_port));
         }
 
         void IPv4Address::ToString(char *str,int max_size)const
@@ -368,7 +368,7 @@ namespace hgl
         bool IPv6Address::Bind(int ThisSocket,int reuse)const{return BindAddr<sockaddr,sockaddr_in6>(ThisSocket,addr,reuse);}
         bool IPv6Address::GetHostname(AnsiString &name)const{return hgl::network::GetHostname(name,(sockaddr *)&addr);}
 
-        const ushort IPv6Address::GetPort()const{return addr.sin6_port;}
+        const ushort IPv6Address::GetPort()const{return ntohs(addr.sin6_port);}
 
         void IPv6Address::ToString(char *str,const int max_size,const in6_addr *ip_addr)
         {
@@ -382,7 +382,7 @@ namespace hgl
             int size=strlen(str);
             str[size]=':';
 
-            hgl::utos(str+size+1,max_size-1-size,ip_addr->sin6_port);
+            hgl::utos(str+size+1,max_size-1-size,ntohs(ip_addr->sin6_port));
         }
 
         void IPv6Address::ToString(char *str,const int max_size)const
