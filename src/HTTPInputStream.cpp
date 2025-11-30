@@ -19,6 +19,14 @@ namespace hgl
                                                         "Connection: Keep-Alive\r\n\r\n";
 
             constexpr uint HTTP_REQUEST_HEADER_END_SIZE=sizeof(HTTP_REQUEST_HEADER_END)-1;
+            
+            constexpr char HTTP_POST_HEADER_END[]=      "\r\n"
+                                                        "Accept: */*\r\n"
+                                                        "User-Agent: Mozilla/5.0\r\n"
+                                                        "Content-Type: application/x-www-form-urlencoded\r\n"
+                                                        "Connection: Keep-Alive\r\n"
+                                                        "Content-Length: ";
+            constexpr uint HTTP_POST_HEADER_END_SIZE=sizeof(HTTP_POST_HEADER_END)-1;
 
             constexpr uint HTTP_HEADER_BUFFER_SIZE=HGL_SIZE_1KB;
         }
@@ -92,6 +100,83 @@ namespace hgl
             if(tcp_os->WriteFully(http_header,len)!=len)
             {
                 LogError("Send HTTP Get Info failed:"+AnsiString(host_ip_str));
+                delete tcp;
+                tcp=nullptr;
+                RETURN_FALSE;
+            }
+
+            *http_header=0;
+
+            tcp_is=tcp->GetInputStream();
+            return(true);
+        }
+
+        /**
+        * POST请求打开
+        * @param host_ip 服务器地址IP
+        * @param host_name 服务器域名或主机名
+        * @param filename 路径及资源名
+        * @param post_data POST数据指针
+        * @param post_data_size POST数据大小
+        * @return 是否成功
+        */
+        bool HTTPInputStream::Post(IPAddress *host_ip,const AnsiString &host_name,const AnsiString &filename,const void *post_data,int post_data_size)
+        {
+            Close();
+
+            response_code=0;
+            response_info.Clear();
+            response_list.Clear();
+
+            if(!host_ip)
+                RETURN_FALSE;
+
+            if(filename.IsEmpty())
+                RETURN_FALSE;
+
+            if(!post_data||post_data_size<=0)
+                RETURN_FALSE;
+
+            tcp=CreateTCPClient(host_ip);
+
+            char *host_ip_str=host_ip->CreateString();
+            SharedArray<char> self_clear(host_ip_str);
+
+            if(!tcp)
+            {
+                LogError("Connect to HTTPServer failed: "+AnsiString(host_ip_str));
+                RETURN_FALSE;
+            }
+
+            //设定为非堵塞模式
+            tcp->SetBlock(false);
+
+            //发送HTTP POST请求
+            int len=0;
+
+            len =strcpy(http_header    ,HTTP_HEADER_BUFFER_SIZE    ,"POST ",5);
+            len+=strcpy(http_header+len,HTTP_HEADER_BUFFER_SIZE-len,filename.c_str(),           filename.Length());
+            len+=strcpy(http_header+len,HTTP_HEADER_BUFFER_SIZE-len,HTTP_REQUEST_HEADER_BEGIN,  HTTP_REQUEST_HEADER_BEGIN_SIZE);
+            len+=strcpy(http_header+len,HTTP_HEADER_BUFFER_SIZE-len,host_name.c_str(),          host_name.Length());
+            len+=strcpy(http_header+len,HTTP_HEADER_BUFFER_SIZE-len,HTTP_POST_HEADER_END,       HTTP_POST_HEADER_END_SIZE);
+
+            //追加Content-Length数值
+            len+=snprintf(http_header+len,HTTP_HEADER_BUFFER_SIZE-len,"%d\r\n\r\n",post_data_size);
+
+            OutputStream *tcp_os=tcp->GetOutputStream();
+
+            if(tcp_os->WriteFully(http_header,len)!=len)
+            {
+                LogError("Send HTTP Post Header failed:"+AnsiString(host_ip_str));
+                delete tcp;
+                tcp=nullptr;
+                RETURN_FALSE;
+            }
+
+            //发送POST数据
+            if(tcp_os->WriteFully(post_data,post_data_size)!=post_data_size)
+            {
+                LogError("Send HTTP Post Data failed:"+AnsiString(host_ip_str));
                 delete tcp;
                 tcp=nullptr;
                 RETURN_FALSE;

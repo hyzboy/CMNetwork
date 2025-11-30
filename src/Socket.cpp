@@ -158,7 +158,10 @@ namespace hgl
                 RETURN_FALSE;
 
             if(ThisSocket!=-1)
+            {
                 hgl::CloseSocket(ThisSocket);
+                ThisSocket=-1;
+            }
 
             ThisSocket=CreateSocket(ThisAddress);
 

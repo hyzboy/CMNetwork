@@ -1,6 +1,6 @@
 ﻿#include"SocketManageBase.h"
 #include<hgl/network/Socket.h>
-#include<hgl/LogInfo.h>
+#include<hgl/log/log.h>
 
 #include<unistd.h>
 #include<sys/epoll.h>

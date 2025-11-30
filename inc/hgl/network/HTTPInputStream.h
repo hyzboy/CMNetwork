@@ -50,7 +50,8 @@ namespace hgl
             HTTPInputStream();
             ~HTTPInputStream();
 
-            bool    Open(IPAddress *,const AnsiString &,const AnsiString &);                        ///<打开一个网址
+            bool    Open(IPAddress *,const AnsiString &,const AnsiString &);                        ///<打开一个网址(GET)
+            bool    Post(IPAddress *,const AnsiString &,const AnsiString &,const void *,int);       ///<POST请求
             void    Close() override;                                                               ///<
 
             uint                    GetResponseCode()const{return response_code;}                   ///<返回HTTP响应代码
