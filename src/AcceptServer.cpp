@@ -26,7 +26,7 @@ namespace hgl
             {
                 int result;
 
-                hgl_cpy(ato,accept_timeout);            //下面的select会将数据清0,所以必须是复制一份出来用
+                mem_copy(ato,accept_timeout);            //下面的select会将数据清0,所以必须是复制一份出来用
 
                 FD_ZERO(&accept_set);
                 FD_SET(ThisSocket,&accept_set);

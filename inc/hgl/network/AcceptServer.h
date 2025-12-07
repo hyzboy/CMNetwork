@@ -37,7 +37,7 @@ namespace hgl
                 ipstr_max_size = 0;
 
                 FD_ZERO(&accept_set);
-                hgl_zero(accept_timeout);
+                mem_zero(accept_timeout);
 
                 SetTimeOut(HGL_NETWORK_TIME_OUT);
             }

@@ -273,7 +273,7 @@ namespace hgl
 
         public:
 
-            IPv4Address(){hgl_zero(addr);}
+            IPv4Address(){mem_zero(addr);}
             IPv4Address(const uint32 _addr,ushort port,int _socktype,int _protocol):IPAddress(_socktype,_protocol)
             {
                 Set(_addr,port);
@@ -291,7 +291,7 @@ namespace hgl
 
             IPv4Address(const IPv4Address &src)
             {
-                hgl_cpy(addr,src.addr);
+                mem_copy(addr,src.addr);
                 socktype=src.socktype;
                 protocol=src.protocol;
             }
@@ -306,7 +306,7 @@ namespace hgl
             bool Set(const char *name,ushort port,int _socktype,int _protocol) override;
             void Set(const uint32 _addr,ushort port)
             {
-                hgl_zero(addr);
+                mem_zero(addr);
                 addr.sin_family     =AF_INET;
                 addr.sin_addr.s_addr=_addr;
                 addr.sin_port       =htons(port);
@@ -345,10 +345,10 @@ namespace hgl
 
         public:
 
-            IPv6Address(){hgl_zero(addr);}
+            IPv6Address(){mem_zero(addr);}
             IPv6Address(const in6_addr *ip,ushort port,int _socktype,int _protocol):IPAddress(_socktype,_protocol)
             {
-                hgl_zero(addr);
+                mem_zero(addr);
 
                 addr.sin6_family=AF_INET6;
                 memcpy(&(addr.sin6_addr),ip,sizeof(in6_addr));
@@ -367,7 +367,7 @@ namespace hgl
 
             IPv6Address(const IPv6Address &src):IPAddress(src.socktype,src.protocol)
             {
-                hgl_cpy(addr,src.addr);
+                mem_copy(addr,src.addr);
             }
 
             const int GetFamily()const override{return AF_INET6;}

@@ -11,7 +11,7 @@ namespace hgl
             {
                 struct addrinfo hints, *answer;
 
-                hgl_zero(hints);
+                mem_zero(hints);
                 hints.ai_family = AF_INET;
                 hints.ai_socktype=socktype;
                 hints.ai_protocol=protocol;
@@ -24,7 +24,7 @@ namespace hgl
             }
             else
             {
-                hgl_zero(addr);
+                mem_zero(addr);
 
                 addr.sin_family=AF_INET;
             }
@@ -38,7 +38,7 @@ namespace hgl
             {
                 struct addrinfo hints, *answer;
 
-                hgl_zero(hints);
+                mem_zero(hints);
                 hints.ai_family = AF_INET6;
                 hints.ai_socktype=socktype;
                 hints.ai_protocol=protocol;
@@ -51,7 +51,7 @@ namespace hgl
             }
             else
             {
-                hgl_zero(addr);
+                mem_zero(addr);
 
                 addr.sin6_family=AF_INET6;
             }
@@ -113,7 +113,7 @@ namespace hgl
         {
             struct addrinfo hints, *answer, *ptr;
 
-            hgl_zero(hints);
+            mem_zero(hints);
             hints.ai_family = FAMILY;
             hints.ai_socktype=socktype;
             hints.ai_protocol=protocol;
@@ -147,7 +147,7 @@ namespace hgl
 
             struct addrinfo hints, *answer, *ptr;
 
-            hgl_zero(hints);
+            mem_zero(hints);
 
             if (getaddrinfo(hostname, nullptr, &hints, &answer))         //此函数最低Windows 2003/Vista
                 return(-1);
@@ -269,7 +269,7 @@ namespace hgl
 
         void IPv4Address::Set(ushort port)
         {
-            hgl_zero(addr);
+            mem_zero(addr);
 
             addr.sin_family = AF_INET;
             addr.sin_port = htons(port);
@@ -359,7 +359,7 @@ namespace hgl
 
         void IPv6Address::Set(ushort port)
         {
-            hgl_zero(addr);
+            mem_zero(addr);
 
             addr.sin6_family = AF_INET6;
             addr.sin6_port = htons(port);
