@@ -259,7 +259,9 @@ public:
 **方案3：使用无锁数据结构**
 ```cpp
 #include <atomic>
-#include <concurrent_queue.h>  // Intel TBB or similar
+#include <tbb/concurrent_queue.h>  // Intel TBB
+// 或者使用 boost::lockfree::queue
+// #include <boost/lockfree/queue.hpp>
 
 class LockFreeSocketManage {
 private:

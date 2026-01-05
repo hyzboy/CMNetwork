@@ -279,6 +279,6 @@ std::expected<void, SocketError> Connect() {
 
 ## 参考资源
 
-- C++ Core Guidelines: https://isocpp.github.io/CppCoreGuidelines/
-- Modern C++ Best Practices
-- 详细文档：DESIGN_REVIEW_AND_IMPROVEMENTS.md
+- [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/)
+- [Modern C++ Best Practices](https://github.com/cpp-best-practices/cppbestpractices)
+- 详细文档：[DESIGN_REVIEW_AND_IMPROVEMENTS.md](DESIGN_REVIEW_AND_IMPROVEMENTS.md)
