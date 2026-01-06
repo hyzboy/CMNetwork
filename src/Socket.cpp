@@ -87,29 +87,33 @@ namespace hgl
 
 //        static atom_int socket_count=0;
 
-        Socket::Socket()
+        void Socket::UpdateCompatibilityFields() const
         {
-            ThisAddress=nullptr;
-            ThisSocket=-1;
+            thisSocket_compat_ = socket_handle_.get();
+            thisAddress_compat_ = address_.get();
+        }
 
+        Socket::Socket()
+            : thisSocket_compat_(-1)
+            , thisAddress_compat_(nullptr)
+            , socket_handle_()
+            , ThisSocket(thisSocket_compat_)
+            , ThisAddress(thisAddress_compat_)
+        {
+            UpdateCompatibilityFields();
 //            LogInfo(u8"Socket Count ++: "+U8String(++socket_count));
         }
 
         Socket::Socket(int sock,const IPAddress *addr)
+            : thisSocket_compat_(sock)
+            , thisAddress_compat_(nullptr)
+            , socket_handle_(sock)
+            , ThisSocket(thisSocket_compat_)
+            , ThisAddress(thisAddress_compat_)
         {
-            ThisSocket=sock;
-
             if(addr)
-                ThisAddress=addr->CreateCopy();
-            else
-                ThisAddress=nullptr;
-        }
-
-        Socket::~Socket()
-        {
-            CloseSocket();
-
-//            LogInfo(u8"Socket Count --: "+U8String(--socket_count));
+                address_.reset(addr->CreateCopy());
+            UpdateCompatibilityFields();
         }
 
         bool Socket::InitSocket(const IPAddress *addr)
@@ -117,19 +121,21 @@ namespace hgl
             if(!addr)
                 RETURN_FALSE;
 
-            SAFE_CLEAR(ThisAddress);
+            address_.reset();
 
             #if HGL_OS == HGL_OS_Windows
             if(!InitWinSocket())
                 RETURN_FALSE;
             #endif//HGL_OS == HGL_OS_Windows
 
-            ThisSocket=CreateSocket(addr);
+            int sock = CreateSocket(addr);
 
-            if(ThisSocket<0)
+            if(sock<0)
                 RETURN_FALSE;
 
-            ThisAddress=addr->CreateCopy();
+            socket_handle_.reset(sock);
+            address_.reset(addr->CreateCopy());
+            UpdateCompatibilityFields();
             return(true);
         }
 
@@ -141,10 +147,10 @@ namespace hgl
             if(sock<0||!addr)
                 RETURN_FALSE;
 
-            SAFE_CLEAR(ThisAddress);
-
-            ThisSocket=sock;
-            ThisAddress=addr->CreateCopy();
+            address_.reset();
+            socket_handle_.reset(sock);
+            address_.reset(addr->CreateCopy());
+            UpdateCompatibilityFields();
 
             return(true);
         }
@@ -154,21 +160,19 @@ namespace hgl
          */
         bool Socket::ReCreateSocket()
         {
-            if(!ThisAddress)
+            if(!address_)
                 RETURN_FALSE;
 
-            if(ThisSocket!=-1)
-            {
-                hgl::CloseSocket(ThisSocket);
-                ThisSocket=-1;
-            }
+            socket_handle_.close();
 
-            ThisSocket=CreateSocket(ThisAddress);
+            int sock = CreateSocket(address_.get());
 
-            if(ThisSocket!=-1)
-                return(true);
+            if(sock < 0)
+                RETURN_FALSE;
 
-            RETURN_FALSE;
+            socket_handle_.reset(sock);
+            UpdateCompatibilityFields();
+            return(true);
         }
 
         /**
@@ -176,11 +180,8 @@ namespace hgl
         */
         void Socket::CloseSocket()
         {
-            if(ThisSocket==-1)
-                return;
-
-            hgl::CloseSocket(ThisSocket);
-            ThisSocket=-1;
+            socket_handle_.close();
+            UpdateCompatibilityFields();
         }
 
         struct SocketErrorMessage   //socket错误信息

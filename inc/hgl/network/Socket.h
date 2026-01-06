@@ -1,8 +1,10 @@
 ﻿#pragma once
 
 #include<hgl/network/IP.h>
+#include<hgl/network/SocketHandle.h>
 #include<hgl/log/log.h>
 #include<hgl/time/TimeConst.h>
+#include<memory>
 
 //#define HGL_RECV_BYTE_COUNT           ///<接收字节数统计(调试用)
 //#define HGL_SEND_BYTE_COUNT           ///<发送字节数统计(调试用)
@@ -111,23 +113,33 @@ namespace hgl
         {
             OBJECT_LOGGER
 
+        private:
+            // Backward compatibility storage
+            mutable int thisSocket_compat_;
+            mutable IPAddress* thisAddress_compat_;
+
         protected:
 
-            IPAddress *ThisAddress;                                                                     ///<本Socket地址
+            std::unique_ptr<IPAddress> address_;                                                        ///<本Socket地址
+            SocketHandle socket_handle_;                                                                ///<Socket文件描述符(RAII管理)
 
             bool InitSocket(const IPAddress *);                                                         ///<创建Socket
 
-        public: //属性
+            void UpdateCompatibilityFields() const;                                                     ///<更新兼容字段
 
-            int ThisSocket;                                                                             ///<当前socket编号
+        public: //属性 - 用于向后兼容(Deprecated, 请使用GetSocket()和GetAddress())
+            
+            int& ThisSocket;                                                                            ///<向后兼容：直接访问socket fd (Deprecated)
+            IPAddress*& ThisAddress;                                                                    ///<向后兼容：直接访问地址指针 (Deprecated)
 
         public: //方法
 
             Socket();
             Socket(int,const IPAddress *);
-            virtual ~Socket();
+            virtual ~Socket() = default;
 
-            const   IPAddress *GetAddress()const{return ThisAddress;}                                   ///<取得当前Socket的IP地址
+            const   IPAddress *GetAddress()const{return address_.get();}                                ///<取得当前Socket的IP地址
+            int     GetSocket()const{return socket_handle_.get();}                                      ///<取得Socket文件描述符
 
             virtual bool    UseSocket(int,const IPAddress *);                                           ///<使用这个Socket与地址
 
@@ -144,7 +156,7 @@ namespace hgl
                     void    SetBlock(bool block,double sto=HGL_NETWORK_TIME_OUT,
                                                 double rto=HGL_NETWORK_TIME_OUT)                        ///<设置是否使用堵塞方式
                     {
-                        SetSocketBlock(ThisSocket,block,sto,rto);
+                        SetSocketBlock(GetSocket(),block,sto,rto);
                     }
 
 //      public: //被动事件函数

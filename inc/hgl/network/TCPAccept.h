@@ -2,6 +2,8 @@
 
 #include<hgl/network/TCPSocket.h>
 #include<hgl/type/DataArray.h>
+#include<memory>
+
 namespace hgl
 {
     namespace network
@@ -37,8 +39,8 @@ namespace hgl
 
         protected:
 
-            SocketInputStream *sis=nullptr;
-            SocketOutputStream *sos=nullptr;
+            std::unique_ptr<SocketInputStream> input_stream_;
+            std::unique_ptr<SocketOutputStream> output_stream_;
 
         protected://事件函数，由SocketManage调用
 
@@ -53,7 +55,7 @@ namespace hgl
         public:
 
             using TCPSocket::TCPSocket;
-            virtual ~TCPAccept();
+            virtual ~TCPAccept() = default;
 
         };//class TCPAccept:public TCPSocket
 

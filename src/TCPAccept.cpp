@@ -9,21 +9,15 @@ namespace hgl
 {
     namespace network
     {
-        TCPAccept::~TCPAccept()
-        {
-            SAFE_CLEAR(sos);
-            SAFE_CLEAR(sis);
-        }
-
         bool TCPAccept::Send(void *data,const uint size)
         {
             if(!data)return(false);
             if(size<=0)return(false);
 
-            if(!sos)
-                sos=new SocketOutputStream(ThisSocket);
+            if(!output_stream_)
+                output_stream_ = std::make_unique<SocketOutputStream>(GetSocket());
 
-            int result=sos->WriteFully(data,size);
+            int result=output_stream_->WriteFully(data,size);
 
             if(result!=size)
                 return(false);
