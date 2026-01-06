@@ -119,10 +119,11 @@ namespace hgl
             }
 
         protected:
-            // 派生类必须实现这些方法（CRTP要求）
-            // 不提供默认实现 - 编译时会检查派生类是否实现了这些方法
+            // Derived classes must implement these methods (CRTP requirement)
+            // No default implementations provided - compiler will check at compile-time
             
-            // 如果你的编译器报错说找不到这些函数，请在派生类中实现它们：
+            // If your compiler reports these functions are not found, 
+            // please implement them in your derived class:
             // int OnRecvImpl(int recv_buf_size, const double ct);
             // int OnSendImpl(int send_buf_size);
             // void OnErrorImpl(int errno_number);

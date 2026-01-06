@@ -371,6 +371,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 **⚠️ 重要警告：ThisSocket 和 ThisAddress 只能读取，不能直接赋值！**
 
+**设计决策**：为了保持RAII和智能指针的安全性，向后兼容层被设计为只读。这是有意为之的权衡：
+- ✅ 保证了资源自动管理的正确性
+- ✅ 防止绕过RAII导致的资源泄漏
+- ❌ 但要求直接赋值的旧代码必须修改
+
 **问题**：`ThisSocket` 和 `ThisAddress` 是引用成员，指向内部兼容字段。直接赋值不会更新实际的 socket 或 address。
 
 ```cpp
@@ -395,6 +400,7 @@ IPAddress* addr = socket.ThisAddress;  // OK
 **解决方案**：
 - 新代码：始终使用 `GetSocket()` 和 `GetAddress()` 方法
 - 旧代码迁移：查找所有 `ThisSocket =` 和 `ThisAddress =` 的赋值，替换为相应的方法调用
+- 工具辅助：可以使用 `grep -rn "ThisSocket\s*=" src/` 查找所有需要修改的位置
 
 ### 2. CRTP的限制
 
