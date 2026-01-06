@@ -119,14 +119,15 @@ namespace hgl
             }
 
         protected:
-            // 派生类需要实现这些方法
-            // 默认实现（可选，如果派生类不需要可以不实现）
+            // 派生类必须实现这些方法（CRTP要求）
+            // 不提供默认实现 - 编译时会检查派生类是否实现了这些方法
             
-            int OnRecvImpl(int recv_buf_size, const double ct) { return 0; }
-            int OnSendImpl(int send_buf_size) { return 0; }
-            void OnErrorImpl(int errno_number) {}
-            void OnCloseImpl() {}
-            bool OnUpdateImpl() { return true; }
+            // 如果你的编译器报错说找不到这些函数，请在派生类中实现它们：
+            // int OnRecvImpl(int recv_buf_size, const double ct);
+            // int OnSendImpl(int send_buf_size);
+            // void OnErrorImpl(int errno_number);
+            // void OnCloseImpl();
+            // bool OnUpdateImpl();
         };//class IOSocketCRTP
 
         /**

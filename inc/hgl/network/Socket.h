@@ -129,8 +129,19 @@ namespace hgl
 
         public: //属性 - 用于向后兼容(Deprecated, 请使用GetSocket()和GetAddress())
             
-            int& ThisSocket;                                                                            ///<向后兼容：直接访问socket fd (Deprecated)
-            IPAddress*& ThisAddress;                                                                    ///<向后兼容：直接访问地址指针 (Deprecated)
+            // ⚠️ 向后兼容层：直接访问socket fd (Deprecated)
+            // 警告：ThisSocket 是引用，直接赋值不会更新实际socket！
+            // 正确用法：读取 - int fd = socket.ThisSocket;
+            // 错误用法：socket.ThisSocket = new_fd;  // 不会生效！
+            // 应该使用：socket.UseSocket(new_fd, addr);
+            int& ThisSocket;
+            
+            // ⚠️ 向后兼容层：直接访问地址指针 (Deprecated)
+            // 警告：ThisAddress 是引用，直接赋值不会更新实际地址！
+            // 正确用法：读取 - IPAddress* addr = socket.ThisAddress;
+            // 错误用法：socket.ThisAddress = new_addr;  // 不会生效！
+            // 应该使用：socket.UseSocket(fd, new_addr);
+            IPAddress*& ThisAddress;
 
         public: //方法
 

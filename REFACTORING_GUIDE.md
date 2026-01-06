@@ -369,14 +369,32 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 ### 1. 向后兼容层的限制
 
-**问题**：`ThisSocket` 和 `ThisAddress` 是引用，不能直接修改
-```cpp
-// ❌ 这样不会生效
-socket.ThisSocket = new_fd;  // 只修改了临时变量
+**⚠️ 重要警告：ThisSocket 和 ThisAddress 只能读取，不能直接赋值！**
 
-// ✅ 应该使用
-socket.UseSocket(new_fd, addr);
+**问题**：`ThisSocket` 和 `ThisAddress` 是引用成员，指向内部兼容字段。直接赋值不会更新实际的 socket 或 address。
+
+```cpp
+// ❌ 这样不会生效 - 只修改了兼容字段，不会更新实际socket
+socket.ThisSocket = new_fd;  
+socket.ThisAddress = new_addr;
+
+// ✅ 正确做法 - 使用方法更新
+socket.UseSocket(new_fd, new_addr);
+
+// ✅ 读取是安全的
+int fd = socket.ThisSocket;  // OK
+IPAddress* addr = socket.ThisAddress;  // OK
 ```
+
+**原因**：
+- `ThisSocket` 引用到 `thisSocket_compat_` (mutable int)
+- `ThisAddress` 引用到 `thisAddress_compat_` (mutable IPAddress*)
+- 修改这些引用只会改变兼容字段，不会更新 `socket_handle_` 或 `address_`
+- 反向同步（从兼容字段到实际字段）未实现，因为会破坏RAII保证
+
+**解决方案**：
+- 新代码：始终使用 `GetSocket()` 和 `GetAddress()` 方法
+- 旧代码迁移：查找所有 `ThisSocket =` 和 `ThisAddress =` 的赋值，替换为相应的方法调用
 
 ### 2. CRTP的限制
 

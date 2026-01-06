@@ -2,6 +2,12 @@
 
 #include<hgl/network/IP.h>
 
+#if HGL_OS == HGL_OS_Windows
+    #include<winsock2.h>
+#else
+    #include<unistd.h>
+#endif
+
 namespace hgl
 {
     namespace network
