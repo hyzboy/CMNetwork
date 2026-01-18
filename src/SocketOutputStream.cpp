@@ -101,7 +101,7 @@ namespace hgl
             const os_char *err_str;
             char *p=(char *)buf;
 
-//             const double start_time=GetPreciseTime();
+//             const double start_time=GetTimeSec();
 
 #if HGL_OS == HGL_OS_Windows
             int result = 0;
@@ -156,7 +156,7 @@ namespace hgl
                 left_bytes-=result;
             }
 
-//             const double end_time=GetPreciseTime();
+//             const double end_time=GetTimeSec();
 
 //             LogInfo(OS_TEXT("SocketOutputStream::WriteFully() time: ")+OSString(end_time-start_time));
 
