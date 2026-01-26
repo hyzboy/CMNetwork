@@ -53,7 +53,7 @@ namespace hgl
 
                 if(err==nseTooManyLink)    //太多的人accept
                 {
-                    WaitTime(overload_wait);        //强制等待指定时间
+                    SleepSecond(overload_wait);        //强制等待指定时间
                     return(0);
                 }
 
