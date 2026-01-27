@@ -1,4 +1,4 @@
-#include<hgl/network/SCTPSocket.h>
+﻿#include<hgl/network/SCTPSocket.h>
 
 namespace hgl
 {

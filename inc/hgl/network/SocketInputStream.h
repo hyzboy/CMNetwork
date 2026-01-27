@@ -4,7 +4,7 @@
 #include<hgl/log/log.h>
 namespace hgl
 {
-    template<typename T> class DataArray;
+    template<typename T> class ValueBuffer;
 
     namespace network
     {
@@ -18,7 +18,7 @@ namespace hgl
         protected:
 
             int sock;
-            DataArray<char> *mb;            ///< Lazily allocated buffer for Skip operation
+            ValueBuffer<char> *mb;            ///< Lazily allocated buffer for Skip operation
 
             int64 total;            //累计字节数
 

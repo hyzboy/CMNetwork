@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include<hgl/network/TCPSocket.h>
-#include<hgl/type/DataArray.h>
+#include<hgl/type/ValueBuffer.h>
 namespace hgl
 {
     namespace network
@@ -61,7 +61,7 @@ namespace hgl
         {
         protected:
 
-            DataArray<uchar> recv_buffer;
+            ValueBuffer<uchar> recv_buffer;
             uint            recv_length=0;
 
             uint64          recv_total=0;

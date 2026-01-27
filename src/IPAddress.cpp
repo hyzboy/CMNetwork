@@ -98,18 +98,18 @@ namespace hgl
             return(true);
         }
 
-        void AddAddrToList(ArrayList<in_addr> &addr_list, const sockaddr_in *sai)
+        void AddAddrToList(ValueArray<in_addr> &addr_list, const sockaddr_in *sai)
         {
             addr_list.Add(sai->sin_addr);
         }
 
-        void AddAddrToList(ArrayList<in6_addr> &addr_list, const sockaddr_in6 *sai)
+        void AddAddrToList(ValueArray<in6_addr> &addr_list, const sockaddr_in6 *sai)
         {
             addr_list.Add(sai->sin6_addr);
         }
 
         template<int FAMILY,typename InAddr,typename SockAddrIn>
-        int GetIPList(ArrayList<InAddr> &addr_list,const char *addr_string, int socktype,int protocol)
+        int GetIPList(ValueArray<InAddr> &addr_list,const char *addr_string, int socktype,int protocol)
         {
             struct addrinfo hints, *answer, *ptr;
 
@@ -138,7 +138,7 @@ namespace hgl
          * @return -1 出错，无法获取主机名称
          * @return -2 出错，无法获取地址信息
          */
-        int GetIPSupport(ArrayList<IPSupport> &ipsl)
+        int GetIPSupport(ValueArray<IPSupport> &ipsl)
         {
             char hostname[NI_MAXHOST];
 
@@ -193,7 +193,7 @@ namespace hgl
          * @param protocol 协议类型
          * @return 是否支持
          */
-        bool CheckIPSupport(const ArrayList<IPSupport> &ips_list,uint family,uint socktype,uint protocol)
+        bool CheckIPSupport(const ValueArray<IPSupport> &ips_list,uint family,uint socktype,uint protocol)
         {
             int count=ips_list.GetCount();
 
@@ -224,7 +224,7 @@ namespace hgl
          */
         bool CheckIPSupport(uint family,uint socktype,uint protocol)
         {
-            ArrayList<IPSupport> ips_list;
+            ValueArray<IPSupport> ips_list;
 
             const int count=GetIPSupport(ips_list);
 
@@ -308,7 +308,7 @@ namespace hgl
         * @param _protocol 协议类型(可以为IPPROTO_TCP、IPPROTO_UDP、IPPROTO_SCTP),默认为所有类型。
         * @return 地址个数,-1表示出错
         */
-        int IPv4Address::GetDomainIPList(ArrayList<in_addr> &addr_list,const char *domain,int socktype,int protocol)
+        int IPv4Address::GetDomainIPList(ValueArray<in_addr> &addr_list,const char *domain,int socktype,int protocol)
         {
             return GetIPList<AF_INET,in_addr,sockaddr_in>(addr_list,domain,socktype,protocol);
         }
@@ -320,7 +320,7 @@ namespace hgl
         * @param _protocol 协议类型(可以为IPPROTO_TCP、IPPROTO_UDP、IPPROTO_SCTP),默认为所有类型。
         * @return 地址个数,-1表示出错
         */
-        int IPv4Address::GetLocalIPList(ArrayList<in_addr> &addr_list,int _socktype,int _protocol)
+        int IPv4Address::GetLocalIPList(ValueArray<in_addr> &addr_list,int _socktype,int _protocol)
         {
             char hostname[NI_MAXHOST];
 
@@ -398,7 +398,7 @@ namespace hgl
         * @param _protocol 协议类型(可以为IPPROTO_TCP、IPPROTO_UDP、IPPROTO_SCTP),默认为所有类型。
         * @return 地址个数,-1表示出错
         */
-        int IPv6Address::GetDomainIPList(ArrayList<in6_addr> &addr_list,const char *domain,int socktype,int protocol)
+        int IPv6Address::GetDomainIPList(ValueArray<in6_addr> &addr_list,const char *domain,int socktype,int protocol)
         {
             return GetIPList<AF_INET6,in6_addr,sockaddr_in6>(addr_list,domain,socktype,protocol);
         }
@@ -410,7 +410,7 @@ namespace hgl
         * @param _protocol 协议类型(可以为IPPROTO_TCP、IPPROTO_UDP、IPPROTO_SCTP),默认为所有类型。
         * @return 地址个数,-1表示出错
         */
-        int IPv6Address::GetLocalIPList(ArrayList<in6_addr> &addr_list,int _socktype,int _protocol)
+        int IPv6Address::GetLocalIPList(ValueArray<in6_addr> &addr_list,int _socktype,int _protocol)
         {
             char hostname[NI_MAXHOST];
 

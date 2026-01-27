@@ -14,7 +14,7 @@ namespace hgl
 
                 ip_stack.Reserve(count+1024);
 
-                server->CreateIPAddress(ip_stack.GetData()+count,1024);
+                server->CreateIPAddress(const_cast<IPAddress**>(ip_stack.GetData()+count),1024);
 
                 ip_stack.Resize(count+1024);
             }

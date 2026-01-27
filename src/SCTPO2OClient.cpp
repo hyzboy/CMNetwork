@@ -1,4 +1,4 @@
-#include<hgl/network/SCTPClient.h>
+﻿#include<hgl/network/SCTPClient.h>
 #include<hgl/LogInfo.h>
 #include<netinet/sctp.h>
 

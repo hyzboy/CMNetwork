@@ -14,11 +14,11 @@ namespace hgl
             OBJECT_LOGGER
 
         #ifdef _DEBUG
-            DataArray<u8char> data_out_str;
+            ValueBuffer<u8char> data_out_str;
         #endif//_DEBUG
         protected:
 
-            DataArray<uchar> recv_buffer;
+            ValueBuffer<uchar> recv_buffer;
             uint            recv_length=0;
 
             uint64          recv_total=0;

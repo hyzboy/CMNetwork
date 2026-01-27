@@ -1,7 +1,7 @@
 ﻿#include<hgl/network/SocketInputStream.h>
 #include<hgl/io/DataInputStream.h>
 #include<hgl/network/TCPSocket.h>
-#include<hgl/type/DataArray.h>
+#include<hgl/type/ValueBuffer.h>
 #include<hgl/log/log.h>
 
 namespace hgl
@@ -236,7 +236,7 @@ namespace hgl
 
             // Lazy allocate buffer if not already allocated
             if(!mb)
-                mb=new DataArray<char>();
+                mb=new ValueBuffer<char>();
 
             mb->Resize(n);
 

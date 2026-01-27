@@ -67,7 +67,7 @@
 #endif//HGL_OS == HGL_OS_Windows
 
 #include<hgl/type/DataType.h>
-#include<hgl/type/ArrayList.h>
+#include<hgl/type/ValueArray.h>
 #include<hgl/type/String.h>
 #include<hgl/type/StrChar.h>
 
@@ -122,8 +122,8 @@ namespace hgl
             };
         };
 
-        int GetIPSupport(ArrayList<IPSupport> &);        ///<取得本机IP支持列表
-        bool CheckIPSupport(const ArrayList<IPSupport> &ips_list,uint family,uint socktype,uint protocol);
+        int GetIPSupport(ValueArray<IPSupport> &);        ///<取得本机IP支持列表
+        bool CheckIPSupport(const ValueArray<IPSupport> &ips_list,uint family,uint socktype,uint protocol);
         bool CheckIPSupport(uint family,uint socktype,uint protocol);
 
         inline bool CheckIPv4SupportTCP     (){return CheckIPSupport(AF_INET,SOCK_STREAM,   IPPROTO_TCP     );}
@@ -327,8 +327,8 @@ namespace hgl
             static void ToString(char *str,const int,const sockaddr_in *);
             void ToString(char *str,const int)const override;
 
-            static int GetDomainIPList(ArrayList<in_addr> &addr_list,const char *domain,int _socktype,int _protocol);        ///<取得当指定域名的IPv4地址列表
-            static int GetLocalIPList(ArrayList<in_addr> &addr_list,int _socktype,int _protocol);                            ///<取得本机的IPv4地址列表
+            static int GetDomainIPList(ValueArray<in_addr> &addr_list,const char *domain,int _socktype,int _protocol);        ///<取得当指定域名的IPv4地址列表
+            static int GetLocalIPList(ValueArray<in_addr> &addr_list,int _socktype,int _protocol);                            ///<取得本机的IPv4地址列表
 
             IPAddress *CreateCopy()const override{return(new IPv4Address(*this));}
             IPAddress *Create()const override{return(new IPv4Address());}
@@ -393,8 +393,8 @@ namespace hgl
             static void ToString(char *str,const int,const sockaddr_in6 *);
             void ToString(char *str,const int)const override;
 
-            static int GetDomainIPList(ArrayList<in6_addr> &addr_list,const char *domain,int _socktype,int _protocol);       ///<取得指定域名的IPv6地址列表
-            static int GetLocalIPList(ArrayList<in6_addr> &addr_list,int _socktype,int _protocol);                           ///<取得本机的IPv6地址列表
+            static int GetDomainIPList(ValueArray<in6_addr> &addr_list,const char *domain,int _socktype,int _protocol);       ///<取得指定域名的IPv6地址列表
+            static int GetLocalIPList(ValueArray<in6_addr> &addr_list,int _socktype,int _protocol);                           ///<取得本机的IPv6地址列表
 
             IPAddress *CreateCopy()const override{return(new IPv6Address(*this));}
             IPAddress *Create()const override{return(new IPv6Address());}

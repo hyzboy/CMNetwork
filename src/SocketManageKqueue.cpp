@@ -1,4 +1,4 @@
-#include"SocketManageBase.h"
+﻿#include"SocketManageBase.h"
 #include<hgl/network/Socket.h>
 #include<hgl/log/Log.h>
 

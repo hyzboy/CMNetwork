@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include<hgl/network/Socket.h>
 #include<hgl/MemBlock.h>

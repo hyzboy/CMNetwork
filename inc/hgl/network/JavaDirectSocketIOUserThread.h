@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include<hgl/network/DirectSocketIOUserThread.h>
 #include<hgl/io/JavaInputStream.h>

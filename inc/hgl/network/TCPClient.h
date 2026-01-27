@@ -14,7 +14,7 @@ namespace hgl
         class TCPClient:public TCPSocket                                                                ///TCP客户端处理类
         {
             OBJECT_LOGGER
-            
+
             io::InputStream *sis;
             io::OutputStream *sos;
 

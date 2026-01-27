@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include<hgl/network/AcceptServer.h>
 #include<hgl/network/SCTPSocket.h>

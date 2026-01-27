@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include<hgl/platform/Platform.h>
-#include<hgl/type/ArrayList.h>
+#include<hgl/type/ValueArray.h>
 namespace hgl
 {
     namespace network
@@ -17,6 +17,6 @@ namespace hgl
             };
         };//struct SocketEvent
 
-        using SocketEventList=ArrayList<SocketEvent>;
+        using SocketEventList=ValueArray<SocketEvent>;
     }//namespace network
 }//namespace hgl
