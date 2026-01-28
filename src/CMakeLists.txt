@@ -89,7 +89,7 @@ SET(CM_NETWORK_ALL_SOURCE
     ${NETWORK_OS_SOURCE}
     WebapiUserAgent.cpp)
 
-add_cm_library(CMNetwork "CM" ${CM_NETWORK_ALL_SOURCE} ${NETWORK_HTTP_SOURCE})
+add_cm_library(CMNetwork "CM" ${CMNETWORK_ROOT_INCLUDE_PATH} ${CM_NETWORK_ALL_SOURCE} ${NETWORK_HTTP_SOURCE})
 
 #find_package(unofficial-gumbo CONFIG REQUIRED)
 #target_link_libraries(CMNetwork PRIVATE unofficial::gumbo::gumbo)
