@@ -23,7 +23,7 @@ namespace hgl
             constexpr u8char HTTP_HEADER_END_STR[4]={'\r','\n','\r','\n'};        //别用"\r\n\r\n"，不然sizeof会得出来5
             constexpr int HTTP_HEADER_END_SIZE=sizeof(HTTP_HEADER_END_STR);
 
-            ValueBuffer<u8char>  ws_header(1024);
+            std::vector<u8char>  ws_header(1024);
 
             int pos=0;
             int total=0;

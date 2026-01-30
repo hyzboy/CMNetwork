@@ -2,10 +2,9 @@
 
 #include<hgl/io/InputStream.h>
 #include<hgl/log/log.h>
+#include<vector>
 namespace hgl
 {
-    template<typename T> class ValueBuffer;
-
     namespace network
     {
         /**
@@ -18,7 +17,7 @@ namespace hgl
         protected:
 
             int sock;
-            ValueBuffer<char> *mb;            ///< Lazily allocated buffer for Skip operation
+            std::vector<char> *mb;            ///< Lazily allocated buffer for Skip operation
 
             int64 total;            //累计字节数
 
