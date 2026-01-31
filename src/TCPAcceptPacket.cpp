@@ -9,12 +9,14 @@ namespace hgl
 {
     namespace network
     {
-        TCPAcceptPacket::TCPAcceptPacket():TCPAccept(),recv_buffer(HGL_TCP_BUFFER_SIZE)
+        TCPAcceptPacket::TCPAcceptPacket():TCPAccept()
         {
+            recv_buffer.reserve(HGL_TCP_BUFFER_SIZE);
         }
 
-        TCPAcceptPacket::TCPAcceptPacket(int s,IPAddress *ip):TCPAccept(s,ip),recv_buffer(HGL_TCP_BUFFER_SIZE)
+        TCPAcceptPacket::TCPAcceptPacket(int s,IPAddress *ip):TCPAccept(s,ip)
         {
+            recv_buffer.reserve(HGL_TCP_BUFFER_SIZE);
         }
 
         /**
@@ -53,7 +55,7 @@ namespace hgl
 
                 PACKET_SIZE_TYPE pack_size=*(PACKET_SIZE_TYPE *)(recv_buffer.data());
 
-                recv_buffer.Resize(PACKET_SIZE_TYPE_BYTES+pack_size);
+                recv_buffer.resize(PACKET_SIZE_TYPE_BYTES+pack_size);
 
                 int result=sis->Read(recv_buffer.data()+recv_length,pack_size-(recv_length-PACKET_SIZE_TYPE_BYTES));
 
@@ -72,7 +74,7 @@ namespace hgl
 
                 OnRecvPacket(recv_buffer.data()+PACKET_SIZE_TYPE_BYTES,pack_size);  //调用回调
 
-                recv_buffer.Clear();
+                recv_buffer.clear();
                 recv_length=0;
             }
         }

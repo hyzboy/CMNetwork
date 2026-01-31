@@ -71,6 +71,29 @@
 #include<hgl/type/String.h>
 #include<hgl/type/StrChar.h>
 
+// IP 地址比较操作符 - 在全局命名空间中定义以支持 std::find
+#if HGL_OS == HGL_OS_Windows
+inline bool operator==(const in_addr &a, const in_addr &b) noexcept
+{
+    return a.S_un.S_addr == b.S_un.S_addr;
+}
+
+inline bool operator!=(const in_addr &a, const in_addr &b) noexcept
+{
+    return !(a == b);
+}
+
+inline bool operator==(const in6_addr &a, const in6_addr &b) noexcept
+{
+    return memcmp(&a, &b, sizeof(in6_addr)) == 0;
+}
+
+inline bool operator!=(const in6_addr &a, const in6_addr &b) noexcept
+{
+    return !(a == b);
+}
+#endif//HGL_OS == HGL_OS_Windows
+
 namespace hgl
 {
     namespace network
@@ -120,6 +143,18 @@ namespace hgl
                 char ipv4str[INET_ADDRSTRLEN+1];
                 char ipv6str[INET6_ADDRSTRLEN+1];
             };
+
+            bool operator==(const IPSupport &other) const noexcept
+            {
+                return family == other.family && 
+                       socktype == other.socktype && 
+                       protocol == other.protocol;
+            }
+
+            bool operator!=(const IPSupport &other) const noexcept
+            {
+                return !(*this == other);
+            }
         };
 
         int GetIPSupport(ValueArray<IPSupport> &);        ///<取得本机IP支持列表

@@ -238,7 +238,7 @@ namespace hgl
             if(!mb)
                 mb=new std::vector<char>();
 
-            mb->Resize(n);
+            mb->resize(n);
 
             return ReadFully(mb->data(),n);
         }

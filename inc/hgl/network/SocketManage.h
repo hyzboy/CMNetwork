@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include<hgl/type/UnorderedMap.h>
-#include<hgl/type/OrderedValueSet.h>
+#include<hgl/type/OrderedSet.h>
 #include<hgl/network/SocketEvent.h>
 #include<hgl/network/TCPAccept.h>
 namespace hgl
@@ -10,7 +10,7 @@ namespace hgl
     {
         class SocketManageBase;
 
-        using TCPAcceptSet=OrderedValueSet<TCPAccept *>;
+        using TCPAcceptSet=OrderedSet<TCPAccept *>;
 
         /**
          * 最简单的服Socket管理类，直接在一个Update内处理socket的轮循和处理事件(不关心是recv还是send)<br>

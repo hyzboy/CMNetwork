@@ -178,7 +178,7 @@ namespace hgl
                 if(msg_masked)
                     msg_full_length+=4;
 
-                recv_buffer.Resize(msg_full_length);
+                recv_buffer.resize(msg_full_length);
 
                 int result=sis->Read(recv_buffer.data()+recv_length,msg_full_length-(recv_length-msg_header_size));
 
@@ -231,7 +231,7 @@ namespace hgl
                     if(msg_length>0)
                     {
                     #ifdef _DEBUG
-                        data_out_str.Resize(msg_length*3);
+                        data_out_str.resize(msg_length*3);
 
                         DataToLowerHexStr(data_out_str.data(),(uint8 *)pack,msg_length,u8char(','));
 
@@ -265,7 +265,7 @@ namespace hgl
                     OnError();
                 }
 
-                recv_buffer.Clear();
+                recv_buffer.clear();
                 recv_length=0;
             }//while
         }
@@ -334,7 +334,7 @@ namespace hgl
         bool WebSocketAccept::SendBinary(void *data,uint32 size,bool fin)
         {
         #ifdef _DEBUG
-            data_out_str.Resize(size*3);
+            data_out_str.resize(size*3);
 
             DataToLowerHexStr(data_out_str.data(),(uint8 *)data,size,u8char(','));
 

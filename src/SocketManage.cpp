@@ -110,12 +110,9 @@ namespace hgl
 
             if(count<=0)return;
 
-            TCPAccept **sp=error_sets.GetData();
-
-            for(int i=0;i<count;i++)
+            for(TCPAccept *item : error_sets)
             {
-                Unjoin(*sp);
-                ++sp;
+                Unjoin(item);
             }
 
             //error_set不在这里ClearData，在主循环的一开始，参见那里的注释
@@ -208,13 +205,10 @@ namespace hgl
         void SocketManage::Clear()
         {
             const int count=socket_list.GetCount();
-            auto **us=socket_list.GetDataList();
 
-            for(int i=0;i<count;i++)
+            for(auto& [key, value] : socket_list)
             {
-                Unjoin((*us)->value);
-
-                ++us;
+                Unjoin(value);
             }
 
             socket_list.Clear();
