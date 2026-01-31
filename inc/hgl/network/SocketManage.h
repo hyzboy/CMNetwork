@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include<hgl/type/Map.h>
+#include<hgl/type/UnorderedMap.h>
 #include<hgl/type/OrderedValueSet.h>
 #include<hgl/network/SocketEvent.h>
 #include<hgl/network/TCPAccept.h>
@@ -22,7 +22,7 @@ namespace hgl
 
         protected:
 
-            using SocketList=Map<int,TCPAccept *>;
+            using SocketList=UnorderedMap<int,TCPAccept *>;
 
         protected:
 
